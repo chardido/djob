@@ -37,10 +37,17 @@ website:   	http://www.themepunch.com
 		padding:0;
 }
 
+<<<<<<< HEAD
 .fullscreen-container {
     width: 100%;
     position: relative;
     padding: 0;
+=======
+.fullscreen-container {
+    width: 100%;
+    position: relative;
+    padding: 0;
+>>>>>>> 6a8a4346da268fe890849fe4c5dd98047df7b8ef
 }
 .fullscreen-s-container {
     width: 100%;
