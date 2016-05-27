@@ -129,10 +129,10 @@
             <div class="inner-nav desktop-nav">
                 <ul class="clearlist scroll-nav local-scroll">
                     <li><a href="index.php">Home</a></li>
-                    <li><a href="">Inserisci Annuncio</a></li>
-                    <li><a href="">Ricerca Annuncio</a></li>
-                    <li><a href="">Gestione Annunci</a></li>
-                    <li><a href="">Gestione Profilo</a></li>
+                    <li><a href="InserisciAnnuncio.php">Inserisci Annuncio</a></li>
+                    <li><a href="RicercaAnnuncio.php">Ricerca Annuncio</a></li>
+                    <li><a href="GestioneAnnunci.php">Gestione Annunci</a></li>
+                    <li><a href="GestioneProfilo.php">Gestione Profilo</a></li>
                     <li><a href="">Microsoft</a></li>
                 </ul>
             </div>

@@ -222,10 +222,10 @@
                     <div class="inner-nav desktop-nav">
                         <ul class="clearlist scroll-nav local-scroll">
                             <li><a href="index.php">Home</a></li>
-                            <li><a href="InserisciAnnuncio.html">Inserisci Annuncio</a></li>
-                            <li><a href="RicercaAnnuncio.html">Ricerca Annuncio</a></li>
-                            <li><a href="GestioneAnnunci.html">Gestione Annunci</a></li>
-                            <li class="active"><a href="Registrazione.html">Registrati</a></li>
+                            <li><a href="InserisciAnnuncio.php">Inserisci Annuncio</a></li>
+                            <li><a href="RicercaAnnuncio.php">Ricerca Annuncio</a></li>
+                            <li><a href="GestioneAnnunci.php">Gestione Annunci</a></li>
+                            <li class="active"><a href="Registrazione.php">Registrati</a></li>
                             <li><a href="Login.php">Login</a></li>
                         </ul>
                     </div>
