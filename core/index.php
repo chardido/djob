@@ -73,7 +73,7 @@
                                 <div class="col-md-12">
                                     <br>
                                     <div class="col-md-12">
-                                        <a href="#" class="btn btn-mod btn-w btn-circle btn-medium">Cerca</a>
+                                        <input type="button" value="Cerca" class="btn btn-mod btn-w btn-circle btn-medium">
                                     </div>
                                 </div>
                             </form>
@@ -108,11 +108,11 @@
                     <div class="inner-nav desktop-nav">
                         <ul class="clearlist scroll-nav local-scroll">
                             <li class="active"><a href="#home">Home</a></li>
-                            <li><a href="">Inserisci Annuncio</a></li>
-                            <li><a href="">Ricerca Annuncio</a></li>
-                            <li><a href="">Gestione Annunci</a></li>
-                            <li><a href="">Registrati</a></li>
-                            <li><a href="Login.html">Login</a></li>
+                            <li><a href="InserisciAnnuncio.php">Inserisci Annuncio</a></li>
+                            <li><a href="RicercaAnnuncio.php">Ricerca Annuncio</a></li>
+                            <li><a href="GestioneAnnunci.php">Gestione Annunci</a></li>
+                            <li><a href="Registrazione.php">Registrati</a></li>
+                            <li><a href="Login.php">Login</a></li>
 
 
 

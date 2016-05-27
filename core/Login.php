@@ -103,12 +103,12 @@
                     <!-- Main Menu -->
                     <div class="inner-nav desktop-nav">
                         <ul class="clearlist scroll-nav local-scroll">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="">Inserisci Annuncio</a></li>
-                            <li><a href="">Ricerca Annuncio</a></li>
-                            <li><a href="">Gestione Annunci</a></li>
-                            <li><a href="">Registrati</a></li>
-                            <li class="active"><a href="">Login</a></li>
+                            <li><a href="index.php">Home</a></li>
+                            <li><a href="InserisciAnnuncio.html">Inserisci Annuncio</a></li>
+                            <li><a href="RicercaAnnuncio.html">Ricerca Annuncio</a></li>
+                            <li><a href="GestioneAnnunci.html">Gestione Annunci</a></li>
+                            <li><a href="Registrazione.php">Registrati</a></li>
+                            <li class="active"><a href="Login.html">Login</a></li>
                         </ul>
                     </div>
                 </div>
