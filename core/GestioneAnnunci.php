@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>DJob | Ricerca Annuncio</title>
+    <title>DJob | Gestione Annunci </title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta charset="utf-8">
@@ -38,132 +38,80 @@
 <!-- Page Wrap -->
 <div class="page" id="top">
 
-    <!-- RICERCA ANNUNCIO AZIENDA -->
-
+    <!-- Home Section -->
     <section class="home-section bg-dark-alfa-30 parallax-2" data-background="images/full-width-images/section-bg-1.jpg" id="home">
         <div class="js-height-full">
             <section class="small-section">
+
                 <div class="row">
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
-                        <h1 style="text-align: center">Ricerca Annuncio</h1>
+                        <h1 style="text-align: center">Gestione Annunci</h1>
                     </div>
                 </div>
 
 
-                <form action="" method="POST">
-                    <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8">
-                            <input type="text" class="input-md form-control" placeholder="Ricerca.."></input>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-2">
-                            <select class="input-md form-control">
-                                <option value="" disabled selected>Settore</option>
-                                <option>Settore 1</option>
-                                <option>Settore 2</option>
-                                <option>Settore 3</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <select class="input-md form-control">
-                                <option value="" disabled selected>Dove?</option>
-                                <option>Luogo 1</option>
-                                <option>Luogo 2</option>
-                                <option>Luogo 3</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <select class="input-md form-control">
-                                <option value="" disabled selected>Titolo di studio</option>
-                                <option>Nessuno</option>
-                                <option>Scuola elementare</option>
-                                <option>Scuola Media Inferiore</option>
-                                <option>Scuola Media Superiore</option>
-                                <option>Laurea Triennale</option>
-                                <option>Laurea Magistrale</option>
-                                <option>Dottorato di Ricerca</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <select class="input-md form-control">
-                                <option value="" disabled selected>Anni esperienza</option>
-                                <option>0 anni</option>
-                                <option>1-2 anni</option>
-                                <option>2-5 anni</option>
-                                <option>5+ anni</option>
-                            </select>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div style="text-align: center">
-                            <input type="button" value="Cerca" class="btn btn-mod btn-w btn-circle btn-medium">
-                        </div>
-                    </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <dl class="accordion">
+                            <!--INIZIO SINGOLO -->
+                            <dt>
+                                <a href="">Annuncio 1</a>
+                            </dt>
+                            <dd style="display: none;">
+                                Descrizione annuncio 1
+                                <div style="text-align: center">
+                                    <br>
+                                    <form action="" method="post">
+                                        <input type="button" value="Modifica" name="modifica" class="btn btn-mod btn-w btn-circle btn-medium">
+                                        <input type="submit" value="Elimina" class="btn btn-mod btn-w btn-circle btn-medium">
+                                    </form>
+                                </div>
+                            </dd>
+                            <!--FINE SINGOLO -->
 
-                </form>
+                            <!--INIZIO SINGOLO -->
+                            <dt>
+                                <a href="">Annuncio 2</a>
+                            </dt>
+                            <dd style="display: none;">
+                                Descrizione annuncio 2
+                                <div style="text-align: center">
+                                    <br>
+                                    <form action="" method="post">
+                                        <input type="button" value="Modifica" name="modifica" class="btn btn-mod btn-w btn-circle btn-medium">
+                                        <input type="submit" value="Elimina" class="btn btn-mod btn-w btn-circle btn-medium">
+                                    </form>
+                                </div>
+                            </dd>
+                            <!--FINE SINGOLO -->
+                            <!--INIZIO SINGOLO -->
+                            <dt>
+                                <a href="">Annuncio 3</a>
+                            </dt>
+                            <dd style="display: none;">
+                                Descrizione annuncio 3
+                                <div style="text-align: center">
+                                    <br>
+                                    <form action="" method="post">
+                                        <input type="button" value="Modifica" name="modifica" class="btn btn-mod btn-w btn-circle btn-medium">
+                                        <input type="submit" value="Elimina" class="btn btn-mod btn-w btn-circle btn-medium">
+                                    </form>
+                                </div>
+                            </dd>
+                            <!--FINE SINGOLO -->
 
+
+                        </dl>
+                    </div>
+                </div>
 
 
             </section>
         </div>
     </section>
-    <!-- FINE RICERCA AZIENDA -->
-
-    <!-- RICERCA ANNUNCIO PRIVATO -->
-
-    <!--
-    <section class="home-section bg-dark-alfa-30 parallax-2" data-background="images/full-width-images/section-bg-1.jpg" id="home">
-        <div class="js-height-full">
-            <section class="small-section">
-                <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
-                        <h1 style="text-align: center">Ricerca Annuncio</h1>
-                    </div>
-                </div>
-
-
-                <form action="" method="POST">
-                    <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-4">
-                            <input type="text" class="input-md form-control" placeholder="Parola chiave.."></input>
-                        </div>
-                        <div class="col-md-2">
-                            <select class="input-md form-control">
-                                <option value="" disabled selected>Dove?</option>
-                                <option>Luogo 1</option>
-                                <option>Luogo 2</option>
-                                <option>Luogo 3</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <select class="input-md form-control">
-                                <option value="" disabled selected>Settore</option>
-                                <option>Settore 1</option>
-                                <option>Settore 2</option>
-                                <option>Settore 3</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <input type="button" value="Cerca" class="btn btn-mod btn-w btn-circle btn-medium">
-                        </div>
-                    </div>
-                </form>
-
-
-
-            </section>
-        </div>
-    </section>
-
-    -->
+    <!-- End Home Section -->
 
     <!-- Navigation panel -->
     <nav class="main-nav dark transparent stick-fixed">
@@ -184,14 +132,13 @@
                     <li><a href="">Inserisci Annuncio</a></li>
                     <li><a href="">Ricerca Annuncio</a></li>
                     <li><a href="">Gestione Annunci</a></li>
-                    <li class="active"><a href="">Gestione Profilo</a></li>
+                    <li><a href="">Gestione Profilo</a></li>
                     <li><a href="">Microsoft</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <!-- End Navigation panel -->
-
 
 
     <!-- End About Section -->
@@ -250,6 +197,13 @@
     <!-- End Google Map -->
 
 
+
+
+    <!-- Top Link -->
+
+    <!-- End Top Link -->
+
+    <!-- End Foter -->
 
 
 </div>

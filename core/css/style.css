@@ -5228,7 +5228,7 @@ section:hover .small-item-carousel .owl-next{
 .accordion > dt > a{
 	display: block;
 	position: relative;
-	color: #777;
+	color: #f7fff6;
 	text-decoration: none;
 	padding: 14px 20px;
 	border: 1px solid #e5e5e5;
@@ -5291,7 +5291,7 @@ section:hover .small-item-carousel .owl-next{
 	padding: 10px 20px 20px;
 	font-size: 14px;
 	line-height: 1.8;
-	color: #777;
+	color: #ffffff;
 }
 
 

@@ -141,8 +141,8 @@
                                             </div>
                                             <br>
                                             <div class="col-md-12">
-                                                <input type="button" value="Annulla" class="btn btn-mod btn-w btn-circle btn-medium">
-                                                <input type="button" value="Conferma" class="btn btn-mod btn-w btn-circle btn-medium">
+                                                <a href="" class="btn btn-mod btn-w btn-circle btn-medium">Annulla</a>
+                                                <input type="submit" value="Conferma" class="btn btn-mod btn-w btn-circle btn-medium">
                                             </div>
 
 

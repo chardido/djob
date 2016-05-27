@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>DJob | Ricerca Annuncio</title>
+    <title>DJob | Gestione Profilo</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta charset="utf-8">
@@ -38,132 +38,80 @@
 <!-- Page Wrap -->
 <div class="page" id="top">
 
-    <!-- RICERCA ANNUNCIO AZIENDA -->
-
+    <!-- Home Section -->
     <section class="home-section bg-dark-alfa-30 parallax-2" data-background="images/full-width-images/section-bg-1.jpg" id="home">
         <div class="js-height-full">
             <section class="small-section">
                 <div class="row">
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
-                        <h1 style="text-align: center">Ricerca Annuncio</h1>
+                        <h1 style="text-align: center">Gestione Profilo</h1>
                     </div>
                 </div>
 
-
-                <form action="" method="POST">
-                    <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8">
-                            <input type="text" class="input-md form-control" placeholder="Ricerca.."></input>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-2">
-                            <select class="input-md form-control">
-                                <option value="" disabled selected>Settore</option>
-                                <option>Settore 1</option>
-                                <option>Settore 2</option>
-                                <option>Settore 3</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <select class="input-md form-control">
-                                <option value="" disabled selected>Dove?</option>
-                                <option>Luogo 1</option>
-                                <option>Luogo 2</option>
-                                <option>Luogo 3</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <select class="input-md form-control">
-                                <option value="" disabled selected>Titolo di studio</option>
-                                <option>Nessuno</option>
-                                <option>Scuola elementare</option>
-                                <option>Scuola Media Inferiore</option>
-                                <option>Scuola Media Superiore</option>
-                                <option>Laurea Triennale</option>
-                                <option>Laurea Magistrale</option>
-                                <option>Dottorato di Ricerca</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <select class="input-md form-control">
-                                <option value="" disabled selected>Anni esperienza</option>
-                                <option>0 anni</option>
-                                <option>1-2 anni</option>
-                                <option>2-5 anni</option>
-                                <option>5+ anni</option>
-                            </select>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div style="text-align: center">
-                            <input type="button" value="Cerca" class="btn btn-mod btn-w btn-circle btn-medium">
-                        </div>
-                    </div>
-
-                </form>
-
-
-
-            </section>
-        </div>
-    </section>
-    <!-- FINE RICERCA AZIENDA -->
-
-    <!-- RICERCA ANNUNCIO PRIVATO -->
-
-    <!--
-    <section class="home-section bg-dark-alfa-30 parallax-2" data-background="images/full-width-images/section-bg-1.jpg" id="home">
-        <div class="js-height-full">
-            <section class="small-section">
                 <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
-                        <h1 style="text-align: center">Ricerca Annuncio</h1>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <form action="" method="post">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Nome azienda" maxlength="100">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Email" maxlength="100">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Città" maxlength="100">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Indirizzo" maxlength="100">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Telefono" maxlength="100">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Username" maxlength="100">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Inserisci password" maxlength="100">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Reinserisci password" maxlength="100">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Vecchia password" maxlength="100">
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="row">
+                                <div style="text-align: center">
+                                    <input type="button" value="Annulla" class="btn btn-mod btn-w btn-circle btn-medium">
+                                    <input type="button" value="Conferma" class="btn btn-mod btn-w btn-circle btn-medium">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
 
+                <!-- SCRIVERE CODICE QUI -->
 
-                <form action="" method="POST">
-                    <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-4">
-                            <input type="text" class="input-md form-control" placeholder="Parola chiave.."></input>
-                        </div>
-                        <div class="col-md-2">
-                            <select class="input-md form-control">
-                                <option value="" disabled selected>Dove?</option>
-                                <option>Luogo 1</option>
-                                <option>Luogo 2</option>
-                                <option>Luogo 3</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <select class="input-md form-control">
-                                <option value="" disabled selected>Settore</option>
-                                <option>Settore 1</option>
-                                <option>Settore 2</option>
-                                <option>Settore 3</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <input type="button" value="Cerca" class="btn btn-mod btn-w btn-circle btn-medium">
-                        </div>
-                    </div>
-                </form>
 
 
 
             </section>
         </div>
     </section>
-
-    -->
+    <!-- End Home Section -->
 
     <!-- Navigation panel -->
     <nav class="main-nav dark transparent stick-fixed">
@@ -184,14 +132,13 @@
                     <li><a href="">Inserisci Annuncio</a></li>
                     <li><a href="">Ricerca Annuncio</a></li>
                     <li><a href="">Gestione Annunci</a></li>
-                    <li class="active"><a href="">Gestione Profilo</a></li>
+                    <li><a href="">Gestione Profilo</a></li>
                     <li><a href="">Microsoft</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <!-- End Navigation panel -->
-
 
 
     <!-- End About Section -->
@@ -250,6 +197,13 @@
     <!-- End Google Map -->
 
 
+
+
+    <!-- Top Link -->
+
+    <!-- End Top Link -->
+
+    <!-- End Foter -->
 
 
 </div>

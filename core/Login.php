@@ -71,7 +71,7 @@
                             <div class="row">
                                 <div class="col-md-7"></div>
                                 <div class="col-md-3">
-                                    <a href="">Non sei ancora registrato?</a>
+                                    <a href="Registrazione.php">Non sei ancora registrato?</a>
                                 </div>
                                 <div class="col-md-3"></div>
                             </div>
@@ -79,7 +79,7 @@
                             <div class="row">
                                 <br>
                                 <div style="text-align: center">
-                                    <input type="button" value="Login" class="btn btn-mod btn-w btn-circle btn-medium">
+                                    <input type="submit" value="Login" class="btn btn-mod btn-w btn-circle btn-medium">
                                 </div>
                             </div>
                         </form>
