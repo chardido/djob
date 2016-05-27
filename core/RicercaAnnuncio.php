@@ -133,8 +133,8 @@
                     <li><a href="">Inserisci Annuncio</a></li>
                     <li><a href="">Ricerca Annuncio</a></li>
                     <li><a href="">Gestione Annunci</a></li>
-                    <li class="active"><a href="">Registrati</a></li>
-                    <li><a href="">Carlo</a></li>
+                    <li class="active"><a href="">Gestione Profilo</a></li>
+                    <li><a href="">Microsoft</a></li>
                 </ul>
             </div>
         </div>
