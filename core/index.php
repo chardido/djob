@@ -1,4 +1,10 @@
+<?php
+session_start();
 
+if(isset($_SESSION['nomeutente'])){
+    $nome = $_SESSION['nomeutente'];
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -111,11 +117,15 @@
                             <li><a href="InserisciAnnuncio.php">Inserisci Annuncio</a></li>
                             <li><a href="RicercaAnnuncio.php">Ricerca Annuncio</a></li>
                             <li><a href="GestioneAnnunci.php">Gestione Annunci</a></li>
-                            <li><a href="Registrazione.php">Registrati</a></li>
-                            <li><a href="Login.php">Login</a></li>
-
-
-
+                            <?php
+                            if(isset($nome)){
+                                echo "<li><a href=\"\">".$nome."</a></li>";
+                                echo "<li><a href=\"GestioneProfilo.php\">Gestione Profilo</a></li>";
+                            }else{
+                                echo "<li><a href=\"Registrazione.php\">Registrati</a></li>";
+                                echo "<li><a href=\"Login.php\">Login</a></li>";
+                            }
+                            ?>
                         </ul>
                     </div>
                 </div>
@@ -163,57 +173,7 @@
             <!-- Divider -->
             <hr class="mt-0 mb-0 "/>
             <!-- End Divider -->
-            
-            <!-- Services Section -->
 
-            <!-- End Services Section -->
-            
-            
-            <!-- Call Action Section -->
-
-            <!-- End Call Action Section -->
-            
-            
-            <!-- Portfolio Section -->
-
-            <!-- End Portfolio Section -->
-            
-            
-            <!-- Call Action Section -->
-
-            <!-- End Call Action Section -->
-            
-            
-            <!-- Features Section -->
-
-            <!-- End Features Section -->
-            
-            
-            <!-- Testimonials Section -->
-
-            <!-- End Testimonials Section -->
-            
-            
-            <!-- Blog Section -->
-
-            <!-- End Blog Section -->
-            
-            
-            <!-- Newsletter Section -->
-
-            <!-- End Newsletter Section -->
-            
-            
-            <!-- Contact Section -->
-
-            <!-- End Contact Section -->
-            
-            
-            <!-- Google Map -->
-
-            <!-- End Google Map -->
-            
-            
             <!-- Foter -->
             <footer class="page-section bg-gray-lighter footer pb-60">
                 <div class="container">

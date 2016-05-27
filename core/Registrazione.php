@@ -1,4 +1,25 @@
+<?php
+session_start();
 
+if(isset($_SESSION['nomeutente'])){
+    header("Location: index.php");
+}
+
+if(isset($_POST['nome']) && isset($_POST['cognome']) && isset($_POST['nascita']) && isset($_POST['email']) && isset($_POST['citta']) && isset($_POST['indirizzo']) && isset($_POST['telefono']) && isset($_POST['titolo']) && isset($_POST['esperienza']) && isset($_POST['competenze']) && isset($_POST['username']) && isset($_POST['password'])){
+    $nome = $_POST['nome'];
+    $cognome = $_POST['cognome'];
+    $nascita = $_POST['nascita'];
+    $email = $_POST['email'];
+    $citta = $_POST['citta'];
+    $indirizzo = $_POST['indirizzo'];
+    $telefono = $_POST['telefono'];
+    $titolo = $_POST['titolo'];
+    $esperienza = $_POST['esperienza'];
+    $competenze = $_POST['competenze'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -79,37 +100,46 @@
                                         <form action="" method="post">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Nome" maxlength="100">
+                                                    <input type="text" name="nome" id="name-2" class="input-md form-control" placeholder="Nome" maxlength="100">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Cognome" maxlength="100">
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Data di nascita" maxlength="100">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Email" maxlength="100">
+                                                    <input type="text" name="cognome" id="name-2" class="input-md form-control" placeholder="Cognome" maxlength="100">
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Citta" maxlength="100">
+                                                    <input type="text" name="nascita" id="name-2" class="input-md form-control" placeholder="Data di nascita" maxlength="100">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Indirizzo" maxlength="100">
+                                                    <input type="text" name="email" id="name-2" class="input-md form-control" placeholder="Email" maxlength="100">
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Telefono" maxlength="100">
+                                                    <input type="text" name="citta" id="name-2" class="input-md form-control" placeholder="Citta" maxlength="100">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Titolo di studio" maxlength="100">
+                                                    <input type="text" name="indirizzo" id="name-2" class="input-md form-control" placeholder="Indirizzo" maxlength="100">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <input type="text" name="telefono" id="name-2" class="input-md form-control" placeholder="Telefono" maxlength="100">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <select class="input-md form-control" name="titolo">
+                                                        <option value="" disabled selected>Titolo di studio</option>
+                                                        <option>Nessuno</option>
+                                                        <option>Scuola elementare</option>
+                                                        <option>Scuola Media Inferiore</option>
+                                                        <option>Scuola Media Superiore</option>
+                                                        <option>Laurea Triennale</option>
+                                                        <option>Laurea Magistrale</option>
+                                                        <option>Dottorato di Ricerca</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <br>
@@ -127,21 +157,21 @@
                                             <br>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <textarea name="text" id="text" class="input-md form-control" rows="8" placeholder="Competenze ed esperienze" length="400"></textarea>
+                                                    <textarea name="competenze" id="text" class="input-md form-control" rows="8" placeholder="Competenze ed esperienze" length="400"></textarea>
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Username" maxlength="100">
+                                                    <input type="text" name="username" id="name-2" class="input-md form-control" placeholder="Username" maxlength="100">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Password" maxlength="100">
+                                                    <input type="password" name="password" id="name-2" class="input-md form-control" placeholder="Password" maxlength="100">
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="col-md-12">
-                                                <a href="" class="btn btn-mod btn-w btn-circle btn-medium">Annulla</a>
+                                                <a href="index.php" class="btn btn-mod btn-w btn-circle btn-medium">Annulla</a>
                                                 <input type="submit" value="Conferma" class="btn btn-mod btn-w btn-circle btn-medium">
                                             </div>
 
