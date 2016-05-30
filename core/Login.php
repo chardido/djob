@@ -1,3 +1,32 @@
+<?php
+session_start();
+
+if(isset($_SESSION['nomeutente'])){
+    header("Location: index.php");
+}
+
+if(isset($_POST['username']) && isset($_POST['password'])){
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $esistente = false;
+
+    $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+    mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+    $query = "SELECT username, password, Tipo, ID FROM Utente";
+    $result = mysql_query($query) or die("QUERY FALLITA");
+
+    while($r = mysql_fetch_array($result,MYSQL_ASSOC)){
+        if(strcmp($r['username'],$username) == 0 && strcmp($r['password'],$password) == 0){
+            $_SESSION['nomeutente'] = $username;
+            $_SESSION['tipoutente'] = $r['Tipo'];
+            $_SESSION['idutente'] = $r['ID'];
+            $esistente = true;
+            header("Location: index.php");
+        }
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html>
@@ -53,7 +82,7 @@
                             <div class="row">
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">
-                                    Username: <input type="text" name="name" id="name-4" class="form-control input-lg" placeholder="Username.." maxlength="100">
+                                    Username: <input type="text" name="username" id="name-4" class="form-control input-lg" placeholder="Username.." maxlength="100">
                                 </div>
                                 <div class="col-md-3"></div>
                             </div>
@@ -63,7 +92,7 @@
                             <div class="row">
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">
-                                    Password: <input type="password" name="name" id="name-4" class="form-control input-lg" placeholder="Password.." maxlength="100">
+                                    Password: <input type="password" name="password" id="name-4" class="form-control input-lg" placeholder="Password.." maxlength="100">
                                 </div>
                                 <div class="col-md-3"></div>
                             </div>
@@ -104,11 +133,11 @@
                     <div class="inner-nav desktop-nav">
                         <ul class="clearlist scroll-nav local-scroll">
                             <li><a href="index.php">Home</a></li>
-                            <li><a href="InserisciAnnuncio.html">Inserisci Annuncio</a></li>
-                            <li><a href="RicercaAnnuncio.html">Ricerca Annuncio</a></li>
-                            <li><a href="GestioneAnnunci.html">Gestione Annunci</a></li>
+                            <li><a href="InserisciAnnuncio.php">Inserisci Annuncio</a></li>
+                            <li><a href="RicercaAnnuncio.php">Ricerca Annuncio</a></li>
+                            <li><a href="GestioneAnnunci.php">Gestione Annunci</a></li>
                             <li><a href="Registrazione.php">Registrati</a></li>
-                            <li class="active"><a href="Login.html">Login</a></li>
+                            <li class="active"><a href="Login.php">Login</a></li>
                         </ul>
                     </div>
                 </div>

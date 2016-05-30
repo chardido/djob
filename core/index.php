@@ -62,24 +62,32 @@ if(isset($_SESSION['nomeutente'])){
                             </h1>
 
 
-                            <form action="" method="POST">
+                            <form action="RicercaAnnuncio.php" method="POST">
                                 <div class="col-md-12">
                                     <div class="col-md-2"></div>
                                     <div class="col-md-6">
                                         <input type="text" class="input-md form-control" placeholder="Ricerca.."></input>
                                     </div>
                                     <div class="col-md-2">
-                                        <select class="input-md form-control">
-                                            <option>Settore 1</option>
-                                            <option>Settore 2</option>
-                                            <option>Settore 3</option>
+                                        <select class="input-md form-control" name="settore">
+                                            <option value="" disabled selected>Settore</option>
+                                            <?php
+                                            $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+                                            mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+                                            $query = "SELECT nome FROM Settore";
+                                            $result = mysql_query($query) or die("QUERY FALLITA");
+
+                                            while($r = mysql_fetch_array($result,MYSQL_ASSOC)){
+                                                echo "<option>".$r['nome']."</option>";
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <br>
                                     <div class="col-md-12">
-                                        <input type="button" value="Cerca" class="btn btn-mod btn-w btn-circle btn-medium">
+                                        <input type="submit" value="Cerca" class="btn btn-mod btn-w btn-circle btn-medium">
                                     </div>
                                 </div>
                             </form>
@@ -113,19 +121,33 @@ if(isset($_SESSION['nomeutente'])){
                     <!-- Main Menu -->
                     <div class="inner-nav desktop-nav">
                         <ul class="clearlist scroll-nav local-scroll">
-                            <li class="active"><a href="#home">Home</a></li>
+                            <li class="active"><a href="index.php">Home</a></li>
                             <li><a href="InserisciAnnuncio.php">Inserisci Annuncio</a></li>
                             <li><a href="RicercaAnnuncio.php">Ricerca Annuncio</a></li>
                             <li><a href="GestioneAnnunci.php">Gestione Annunci</a></li>
                             <?php
                             if(isset($nome)){
-                                echo "<li><a href=\"\">".$nome."</a></li>";
                                 echo "<li><a href=\"GestioneProfilo.php\">Gestione Profilo</a></li>";
+                                echo "<li>
+                                <a href=\"\" class=\"mn-has-sub\" style=\"height: 75px; line-height: 75px;\">".$nome." <i class=\"fa fa-angle-down\"></i></a>
+
+                                <!-- Sub -->
+                                <ul class=\"mn-sub to-left\" style=\"display: none; opacity: 1;\">
+
+                                    <li>
+                                        <a href=\"logout.php\">Logout</a>
+                                    </li>
+
+                                </ul>
+                                <!-- End Sub -->
+
+                            </li>";
                             }else{
                                 echo "<li><a href=\"Registrazione.php\">Registrati</a></li>";
                                 echo "<li><a href=\"Login.php\">Login</a></li>";
                             }
                             ?>
+
                         </ul>
                     </div>
                 </div>

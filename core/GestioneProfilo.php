@@ -1,3 +1,113 @@
+<?php
+session_start();
+if(!isset($_SESSION['nomeutente'])){
+    header("Location: Login.php");
+}
+
+if(isset($_SESSION['nomeutente'])){
+    $nome = $_SESSION['nomeutente'];
+    $idutente = $_SESSION['idutente'];
+    $tipoutente  = $_SESSION['tipoutente'];
+
+    $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+    mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+    $query = "SELECT * FROM Utente WHERE ID = '$idutente'";
+    $result = mysql_query($query) or die("QUERY FALLITA");
+    $r = mysql_fetch_array($result,MYSQL_ASSOC);
+
+    if($tipoutente == "Azienda") {
+        $nomevero = $r['Nome'];
+        $email = $r['Email'];
+        $citta = $r['Citta'];
+        $telefono = $r['Telefono'];
+        $indirizzo = $r['Indirizzo'];
+        $username = $r['Username'];
+        $password = $r['Password'];
+    }else{
+        $nomevero = $r['Nome'];
+        $cognome = $r['Cognome'];
+        $nascita = $r['Nascita'];
+        $email = $r['Email'];
+        $citta = $r['Citta'];
+        $competenze = $r['Competenze'];
+        $esperienza = $r['AnniEsperienza'];
+        $titolo = $r['TitoloStudio'];
+        $telefono = $r['Telefono'];
+        $indirizzo = $r['Indirizzo'];
+        $username = $r['Username'];
+        $password = $r['Password'];
+    }
+}
+
+if(isset($_POST['nome']) && isset($_POST['email']) && isset($_POST['citta']) && isset($_POST['indirizzo']) && isset($_POST['telefono']) && isset($_POST['passwordvecchia'])){
+
+    $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+    mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+    $query = "SELECT * FROM Utente WHERE ID = '$idutente'";
+    $result = mysql_query($query) or die("QUERY FALLITA");
+    $r = mysql_fetch_array($result,MYSQL_ASSOC);
+
+    $passwordVecchia = $r['Password'];
+
+
+    $passwordInserita = $_POST['passwordvecchia'];
+    if(strcmp($password, $passwordInserita) == 0){
+        $nomeMod = $_POST['nome'];
+        $emailMod = $_POST['email'];
+        $cittaMod = $_POST['citta'];
+        $indirizzoMod = $_POST['indirizzo'];
+        $telefonoMod = $_POST['telefono'];
+        $passwordMod = $passwordVecchia;
+        if(isset($_POST['passwordnuova'])){
+            $passwordMod = $_POST['passwordnuova'];
+        }
+
+        $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+        mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+        $query = "UPDATE Utente SET Nome = '$nomeMod', Email = '$emailMod', Citta = '$cittaMod', Telefono = '$telefonoMod', Indirizzo = '$indirizzoMod', Password = '$passwordMod' WHERE ID = '$idutente'";
+        $result = mysql_query($query) or die("QUERY FALLITA: ".mysql_error());
+        header("Location: GestioneProfilo.php");
+     }
+}
+
+if(isset($_POST['nome']) && isset($_POST['email']) && isset($_POST['citta']) && isset($_POST['indirizzo']) && isset($_POST['telefono']) && isset($_POST['passwordvecchia']) && isset($_POST['cognome']) && isset($_POST['nascita']) && isset($_POST['titolo']) && isset($_POST['esperienza']) && isset($_POST['competenze'])){
+
+    $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+    mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+    $query = "SELECT * FROM Utente WHERE ID = '$idutente'";
+    $result = mysql_query($query) or die("QUERY FALLITA");
+    $r = mysql_fetch_array($result,MYSQL_ASSOC);
+
+    $passwordVecchia = $r['Password'];
+
+
+    $passwordInserita = $_POST['passwordvecchia'];
+    if(strcmp($password, $passwordInserita) == 0){
+        $nomeMod = $_POST['nome'];
+        $emailMod = $_POST['email'];
+        $cittaMod = $_POST['citta'];
+        $indirizzoMod = $_POST['indirizzo'];
+        $telefonoMod = $_POST['telefono'];
+        $cognomeMod = $_POST['cognome'];
+        $nascitaMod = $_POST['nascita'];
+        $competenzeMod = $_POST['competenze'];
+        $titoloMod = $_POST['titolo'];
+        $esperienzaMod = $_POST['esperienza'];
+        $passwordMod = $passwordVecchia;
+        if(isset($_POST['passwordnuova'])){
+            $passwordMod = $_POST['passwordnuova'];
+        }
+
+        $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+        mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+        $query = "UPDATE Utente SET Nome = '$nomeMod', Email = '$emailMod', Citta = '$cittaMod', Telefono = '$telefonoMod', Indirizzo = '$indirizzoMod', Password = '$passwordMod', Nascita = '$nascitaMod', Cognome = '$cognomeMod', Competenze = '$competenzeMod', AnniEsperienza = '$esperienzaMod', TitoloStudio = '$titoloMod' WHERE ID = '$idutente'";
+        $result = mysql_query($query) or die("QUERY FALLITA: ".mysql_error());
+        header("Location: GestioneProfilo.php");
+    }
+}
+
+?>
+
 
 <!DOCTYPE html>
 <html>
@@ -38,6 +148,7 @@
 <!-- Page Wrap -->
 <div class="page" id="top">
 
+    <?php if($tipoutente == "Azienda"){ ?>
     <!-- Home Section -->
     <section class="home-section bg-dark-alfa-30 parallax-2" data-background="images/full-width-images/section-bg-1.jpg" id="home">
         <div class="js-height-full">
@@ -55,63 +166,161 @@
                         <form action="" method="post">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Nome azienda" maxlength="100">
+                                    <input type="text" name="nome" id="name-2" class="input-md form-control" value="<?php echo $nomevero; ?>" maxlength="100">
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Email" maxlength="100">
+                                    <input type="text" name="email" id="name-2" class="input-md form-control" value="<?php echo $email; ?>" maxlength="100">
                                 </div>
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Città" maxlength="100">
+                                    <input type="text" name="citta" id="name-2" class="input-md form-control" value="<?php echo $citta; ?>" maxlength="100">
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Indirizzo" maxlength="100">
+                                    <input type="text" name="indirizzo" id="name-2" class="input-md form-control" value="<?php echo $indirizzo; ?>" maxlength="100">
                                 </div>
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Telefono" maxlength="100">
+                                    <input type="text" name="telefono" id="name-2" class="input-md form-control" value="<?php echo $telefono; ?>" maxlength="100">
                                 </div>
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Username" maxlength="100">
+                                    <input type="text" name="username" id="name-2" class="input-md form-control" disabled="disabled" value="<?php echo $username; ?>" maxlength="100">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Inserisci password" maxlength="100">
+                                    <input type="password" name="passwordnuova" id="name-2" class="input-md form-control" placeholder="Nuova password" maxlength="100">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Reinserisci password" maxlength="100">
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Vecchia password" maxlength="100">
+                                    <input type="password" name="passwordvecchia" id="name-2" class="input-md form-control" placeholder="Vecchia password" maxlength="100">
                                 </div>
                             </div>
 
                             <br>
                             <div class="row">
                                 <div style="text-align: center">
-                                    <input type="button" value="Annulla" class="btn btn-mod btn-w btn-circle btn-medium">
-                                    <input type="button" value="Conferma" class="btn btn-mod btn-w btn-circle btn-medium">
+                                    <a href="index.php" class="btn btn-mod btn-w btn-circle btn-medium">Annulla</a>
+                                    <input type="submit" value="Conferma" class="btn btn-mod btn-w btn-circle btn-medium">
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-
-                <!-- SCRIVERE CODICE QUI -->
-
-
-
-
             </section>
         </div>
     </section>
+    <?php }else{ ?>
     <!-- End Home Section -->
+
+    <!-- PRIVATOOOO -->
+
+    <!-- Home Section -->
+    <section class="home-section bg-dark-alfa-30 parallax-2" data-background="images/full-width-images/section-bg-1.jpg" id="home">
+            <section class="small-section">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <h1 style="text-align: center">Gestione Profilo</h1>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <form action="" method="post">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" name="nome" id="name-2" class="input-md form-control" value="<?php echo $nomevero; ?>" maxlength="100">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="email" id="name-2" class="input-md form-control" value="<?php echo $email; ?>" maxlength="100">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" name="cognome" id="name-2" class="input-md form-control" value="<?php echo $cognome; ?>" maxlength="100">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="nascita" id="name-2" class="input-md form-control" value="<?php echo $nascita; ?>" maxlength="100">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" name="citta" id="name-2" class="input-md form-control" value="<?php echo $citta; ?>" maxlength="100">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="indirizzo" id="name-2" class="input-md form-control" value="<?php echo $indirizzo; ?>" maxlength="100">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" name="telefono" id="name-2" class="input-md form-control" value="<?php echo $telefono; ?>" maxlength="100">
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="input-md form-control" name="titolo">
+                                        <option value="" disabled selected>Titolo di studio</option>
+                                        <option>Nessuno</option>
+                                        <option>Scuola elementare</option>
+                                        <option>Scuola Media Inferiore</option>
+                                        <option>Scuola Media Superiore</option>
+                                        <option>Laurea Triennale</option>
+                                        <option>Laurea Magistrale</option>
+                                        <option>Dottorato di Ricerca</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <select class="input-md form-control" name="esperienza">
+                                        <option value="" disabled selected>Anni di esperienza</option>
+                                        <option>0</option>
+                                        <option>1-2</option>
+                                        <option>2-5</option>
+                                        <option>5+</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <textarea name="competenze" id="text" class="input-md form-control" rows="8" placeholder="Competenze ed esperienze" length="400"><?php echo htmlentities($competenze); ?></textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="text" name="username" id="name-2" class="input-md form-control" disabled="disabled" value="<?php echo $username; ?>" maxlength="100">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="password" name="passwordnuova" id="name-2" class="input-md form-control" placeholder="Nuova password" maxlength="100">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="password" name="passwordvecchia" id="name-2" class="input-md form-control" placeholder="Vecchia password" maxlength="100">
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="row">
+                                <div style="text-align: center">
+                                    <a href="index.php" class="btn btn-mod btn-w btn-circle btn-medium">Annulla</a>
+                                    <input type="submit" value="Conferma" class="btn btn-mod btn-w btn-circle btn-medium">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+    </section>
+    <?php } ?>
+
 
     <!-- Navigation panel -->
     <nav class="main-nav dark transparent stick-fixed">
@@ -132,8 +341,29 @@
                     <li><a href="InserisciAnnuncio.php">Inserisci Annuncio</a></li>
                     <li><a href="RicercaAnnuncio.php">Ricerca Annuncio</a></li>
                     <li><a href="GestioneAnnunci.php">Gestione Annunci</a></li>
-                    <li><a href="GestioneProfilo.php">Gestione Profilo</a></li>
-                    <li><a href="">Microsoft</a></li>
+                    <?php
+                    if(isset($nome)){
+                        echo "<li><a href=\"GestioneProfilo.php\">Gestione Profilo</a></li>";
+                        echo "<li>
+                                <a href=\"\" class=\"mn-has-sub\" style=\"height: 75px; line-height: 75px;\">".$nome." <i class=\"fa fa-angle-down\"></i></a>
+
+                                <!-- Sub -->
+                                <ul class=\"mn-sub to-left\" style=\"display: none; opacity: 1;\">
+
+                                    <li>
+                                        <a href=\"logout.php\">Logout</a>
+                                    </li>
+
+                                </ul>
+                                <!-- End Sub -->
+
+                            </li>";
+                    }else{
+                        echo "<li><a href=\"Registrazione.php\">Registrati</a></li>";
+                        echo "<li><a href=\"Login.php\">Login</a></li>";
+                    }
+                    ?>
+
                 </ul>
             </div>
         </div>
@@ -146,64 +376,6 @@
     <!-- Divider -->
     <hr class="mt-0 mb-0 "/>
     <!-- End Divider -->
-
-    <!-- Services Section -->
-
-    <!-- End Services Section -->
-
-
-    <!-- Call Action Section -->
-
-    <!-- End Call Action Section -->
-
-
-    <!-- Portfolio Section -->
-
-    <!-- End Portfolio Section -->
-
-
-    <!-- Call Action Section -->
-
-    <!-- End Call Action Section -->
-
-
-    <!-- Features Section -->
-
-    <!-- End Features Section -->
-
-
-    <!-- Testimonials Section -->
-
-    <!-- End Testimonials Section -->
-
-
-    <!-- Blog Section -->
-
-    <!-- End Blog Section -->
-
-
-    <!-- Newsletter Section -->
-
-    <!-- End Newsletter Section -->
-
-
-    <!-- Contact Section -->
-
-    <!-- End Contact Section -->
-
-
-    <!-- Google Map -->
-
-    <!-- End Google Map -->
-
-
-
-
-    <!-- Top Link -->
-
-    <!-- End Top Link -->
-
-    <!-- End Foter -->
 
 
 </div>

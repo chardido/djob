@@ -1,4 +1,13 @@
+<?php
+session_start();
 
+if(isset($_SESSION['nomeutente'])){
+    $nome = $_SESSION['nomeutente'];
+    $tipoutente = $_SESSION['tipoutente'];
+}
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +36,7 @@
 
 
 </head>
-<body class="appear-animate">
+<body class="appear-animate" >
 
 <!-- Page Loader -->
 <div class="page-loader">
@@ -37,11 +46,10 @@
 
 <!-- Page Wrap -->
 <div class="page" id="top">
-
     <!-- RICERCA ANNUNCIO AZIENDA -->
+    <?php if(isset($tipoutente) && $tipoutente == "Azienda"){?>
 
     <section class="home-section bg-dark-alfa-30 parallax-2" data-background="images/full-width-images/section-bg-1.jpg" id="home">
-        <div class="js-height-full">
             <section class="small-section">
                 <div class="row">
                     <div class="col-md-3"></div>
@@ -50,35 +58,48 @@
                     </div>
                 </div>
 
-
                 <form action="" method="POST">
                     <div class="row">
                         <div class="col-md-2"></div>
                         <div class="col-md-8">
-                            <input type="text" class="input-md form-control" placeholder="Ricerca.."></input>
+                            <input type="text" name="parolachiave" class="input-md form-control" placeholder="Ricerca..">
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-2"></div>
                         <div class="col-md-2">
-                            <select class="input-md form-control">
+                            <select class="input-md form-control" name="settore">
                                 <option value="" disabled selected>Settore</option>
-                                <option>Settore 1</option>
-                                <option>Settore 2</option>
-                                <option>Settore 3</option>
+                                <?php
+                                $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+                                mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+                                $query = "SELECT nome FROM Settore";
+                                $result = mysql_query($query) or die("QUERY FALLITA");
+
+                                while($r = mysql_fetch_array($result,MYSQL_ASSOC)){
+                                    echo "<option>".$r['nome']."</option>";
+                                }
+                                ?>
                             </select>
                         </div>
                         <div class="col-md-2">
-                            <select class="input-md form-control">
-                                <option value="" disabled selected>Dove?</option>
-                                <option>Luogo 1</option>
-                                <option>Luogo 2</option>
-                                <option>Luogo 3</option>
+                            <select class="input-md form-control" name="luogo">
+                                <option value="" disabled selected>Luogo</option>
+                                <?php
+                                $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+                                mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+                                $query = "SELECT nome FROM Luogo ORDER BY nome";
+                                $result = mysql_query($query) or die("QUERY FALLITA");
+
+                                while($r = mysql_fetch_array($result,MYSQL_ASSOC)){
+                                    echo "<option>".$r['nome']."</option>";
+                                }
+                                ?>
                             </select>
                         </div>
                         <div class="col-md-2">
-                            <select class="input-md form-control">
+                            <select class="input-md form-control" name="titolo">
                                 <option value="" disabled selected>Titolo di studio</option>
                                 <option>Nessuno</option>
                                 <option>Scuola elementare</option>
@@ -90,36 +111,85 @@
                             </select>
                         </div>
                         <div class="col-md-2">
-                            <select class="input-md form-control">
+                            <select class="input-md form-control" name="esperienza">
                                 <option value="" disabled selected>Anni esperienza</option>
-                                <option>0 anni</option>
-                                <option>1-2 anni</option>
-                                <option>2-5 anni</option>
-                                <option>5+ anni</option>
+                                <option>0</option>
+                                <option>1-2</option>
+                                <option>2-5</option>
+                                <option>5+</option>
                             </select>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div style="text-align: center">
-                            <input type="button" value="Cerca" class="btn btn-mod btn-w btn-circle btn-medium">
+                            <input type="submit" value="Cerca" class="btn btn-mod btn-w btn-circle btn-medium">
                         </div>
                     </div>
 
                 </form>
 
+                <?php
+                if(isset($_POST['parolachiave']) && isset($_POST['luogo']) && isset($_POST['settore']) && isset($_POST['titolo']) && isset($_POST['esperienza'])){
+                    $parolachiave = $_POST['parolachiave'];
+                    $luogo = $_POST['luogo'];
+                    $settore = $_POST['settore'];
+                    $titolo = $_POST['titolo'];
+                    $esperienza = $_POST['esperienza'];
+                    ?>
+
+                    <section class="home-section bg-dark-alfa-30 parallax-2" data-background="images/full-width-images/section-bg-1.jpg" id="home">
+                        <div class="js-height-full">
+                            <section class="small-section">
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8">
+                                        <dl class="accordion">
+                                            <?php
+                                            $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+                                            mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+                                            $query = "SELECT * FROM Annuncio, Utente WHERE Descrizione LIKE '%$parolachiave%' AND Luogo = '$luogo' AND Settore = '$settore' AND Utente.TitoloStudio = '$titolo' AND Utente.AnniEsperienza = '$esperienza'";
+                                            $result = mysql_query($query) or die("QUERY FALLITA");
+
+                                            while($r = mysql_fetch_array($result,MYSQL_ASSOC)){
+                                                $email = $r['Email'];
+                                                $telefono = $r['Telefono'];
+                                                echo "<dt><a href=\"\">" . $r['Titolo'] . " (" . $r['Luogo'] . ")</a></dt>";
+                                                echo "<dd style=\"display: none;\">" . $r['Descrizione'];
+                                                echo "<div style=\"text-align: center\"><br>";
+                                                echo "<form action=\"\" method=\"post\">";
+                                                printf("<input type=\"hidden\" name=\"idannuncio\" value=\"%d\">", $r['ID']);
+                                                printf("<input type=\"button\" value=\"Email\" onclick=\"mostraemail('%s')\" class=\"btn btn-mod btn-w btn-circle btn-medium\">", $email);
+                                                printf("<input type=\"button\" value=\"Telefono\" onclick=\"mostratelefono('%s')\" class=\"btn btn-mod btn-w btn-circle btn-medium\">", $telefono);
+
+                                                echo "</form>";
+                                                echo "</div>";
+                                                echo "</dd>";
+                                            }
+                                            ?>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </section>
+                    <?php
+                }
+                ?>
+
+
 
 
             </section>
-        </div>
     </section>
+
+    <?php }else{ ?>
     <!-- FINE RICERCA AZIENDA -->
 
     <!-- RICERCA ANNUNCIO PRIVATO -->
 
-    <!--
+
     <section class="home-section bg-dark-alfa-30 parallax-2" data-background="images/full-width-images/section-bg-1.jpg" id="home">
-        <div class="js-height-full">
             <section class="small-section">
                 <div class="row">
                     <div class="col-md-3"></div>
@@ -133,38 +203,99 @@
                     <div class="row">
                         <div class="col-md-2"></div>
                         <div class="col-md-4">
-                            <input type="text" class="input-md form-control" placeholder="Parola chiave.."></input>
+                            <input type="text" name="parolachiave" class="input-md form-control" placeholder="Parola chiave..">
                         </div>
                         <div class="col-md-2">
-                            <select class="input-md form-control">
-                                <option value="" disabled selected>Dove?</option>
-                                <option>Luogo 1</option>
-                                <option>Luogo 2</option>
-                                <option>Luogo 3</option>
+                            <select class="input-md form-control" name="luogo">
+                                <option value="" disabled selected>Luogo</option>
+                                <?php
+                                $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+                                mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+                                $query = "SELECT nome FROM Luogo ORDER BY nome";
+                                $result = mysql_query($query) or die("QUERY FALLITA");
+
+                                while($r = mysql_fetch_array($result,MYSQL_ASSOC)){
+                                    echo "<option>".$r['nome']."</option>";
+                                }
+                                ?>
                             </select>
                         </div>
                         <div class="col-md-2">
-                            <select class="input-md form-control">
+                            <select class="input-md form-control" name="settore">
                                 <option value="" disabled selected>Settore</option>
-                                <option>Settore 1</option>
-                                <option>Settore 2</option>
-                                <option>Settore 3</option>
+                                <?php
+                                $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+                                mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+                                $query = "SELECT nome FROM Settore";
+                                $result = mysql_query($query) or die("QUERY FALLITA");
+
+                                while($r = mysql_fetch_array($result,MYSQL_ASSOC)){
+                                    echo "<option>".$r['nome']."</option>";
+                                }
+                                ?>
                             </select>
                         </div>
-                        <div class="col-md-2">
-                            <input type="button" value="Cerca" class="btn btn-mod btn-w btn-circle btn-medium">
-                        </div>
+                    </div>
+                    <br>
+                    <div style="text-align: center">
+                        <input type="submit" value="Cerca" class="btn btn-mod btn-w btn-circle btn-medium">
                     </div>
                 </form>
 
+                <?php
+                if(isset($_POST['parolachiave']) && isset($_POST['luogo']) && isset($_POST['settore'])){
+                    $parolachiave = $_POST['parolachiave'];
+                    $luogo = $_POST['luogo'];
+                    $settore = $_POST['settore'];
+
+                    ?>
+
+                    <section class="home-section bg-dark-alfa-30 parallax-2" data-background="images/full-width-images/section-bg-1.jpg" id="home">
+                        <div class="js-height-full">
+                            <section class="small-section">
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8">
+                                        <dl class="accordion">
+                                            <?php
+                                            $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+                                            mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+                                            $query = "SELECT * FROM Annuncio, Utente WHERE Descrizione LIKE '%$parolachiave%' AND Luogo = '$luogo' AND Settore = '$settore' AND Annuncio.Tipo = 'Azienda' AND Annuncio.ID_Utente = Utente.ID";
+                                            $result = mysql_query($query) or die("QUERY FALLITA");
+
+                                            while($r = mysql_fetch_array($result,MYSQL_ASSOC)){
+                                                $email = $r['Email'];
+                                                $telefono = $r['Telefono'];
+                                                echo "<dt><a href=\"\">" . $r['Titolo'] . " (" . $r['Luogo'] . ")</a></dt>";
+                                                echo "<dd style=\"display: none;\">" . $r['Descrizione'];
+                                                echo "<div style=\"text-align: center\"><br>";
+                                                echo "<form action=\"\" method=\"post\">";
+                                                printf("<input type=\"hidden\" name=\"idannuncio\" value=\"%d\">", $r['ID']);
+                                                printf("<input type=\"button\" value=\"Email\" onclick=\"mostraemail('%s')\" class=\"btn btn-mod btn-w btn-circle btn-medium\">", $email);
+                                                printf("<input type=\"button\" value=\"Telefono\" onclick=\"mostratelefono('%s')\" class=\"btn btn-mod btn-w btn-circle btn-medium\">", $telefono);
+                                                echo "</form>";
+                                                echo "</div>";
+                                                echo "</dd>";
+                                            }
+                                            ?>
+                                        </dl>
+                                    </div>
+
+                                </div>
+                            </section>
+                        </div>
+                    </section>
+                    <?php
+                }
+                ?>
 
 
             </section>
-        </div>
     </section>
 
-    -->
 
+
+    <?php } ?>
     <!-- Navigation panel -->
     <nav class="main-nav dark transparent stick-fixed">
         <div class="full-wrapper relative clearfix">
@@ -184,74 +315,33 @@
                     <li><a href="InserisciAnnuncio.php">Inserisci Annuncio</a></li>
                     <li><a href="RicercaAnnuncio.php">Ricerca Annuncio</a></li>
                     <li><a href="GestioneAnnunci.php">Gestione Annunci</a></li>
-                    <li class="active"><a href="GestioneProfilo.php">Gestione Profilo</a></li>
-                    <li><a href="">Microsoft</a></li>
+                    <?php
+                    if(isset($nome)){
+                        echo "<li><a href=\"GestioneProfilo.php\">Gestione Profilo</a></li>";
+                        echo "<li>
+                                <a href=\"\" class=\"mn-has-sub\" style=\"height: 75px; line-height: 75px;\">".$nome." <i class=\"fa fa-angle-down\"></i></a>
+
+                                <!-- Sub -->
+                                <ul class=\"mn-sub to-left\" style=\"display: none; opacity: 1;\">
+
+                                    <li>
+                                        <a href=\"logout.php\">Logout</a>
+                                    </li>
+
+                                </ul>
+                                <!-- End Sub -->
+
+                            </li>";
+                    }else{
+                        echo "<li><a href=\"Registrazione.php\">Registrati</a></li>";
+                        echo "<li><a href=\"Login.php\">Login</a></li>";
+                    }
+                    ?>
+
                 </ul>
             </div>
         </div>
     </nav>
-    <!-- End Navigation panel -->
-
-
-
-    <!-- End About Section -->
-
-    <!-- Divider -->
-    <hr class="mt-0 mb-0 "/>
-    <!-- End Divider -->
-
-    <!-- Services Section -->
-
-    <!-- End Services Section -->
-
-
-    <!-- Call Action Section -->
-
-    <!-- End Call Action Section -->
-
-
-    <!-- Portfolio Section -->
-
-    <!-- End Portfolio Section -->
-
-
-    <!-- Call Action Section -->
-
-    <!-- End Call Action Section -->
-
-
-    <!-- Features Section -->
-
-    <!-- End Features Section -->
-
-
-    <!-- Testimonials Section -->
-
-    <!-- End Testimonials Section -->
-
-
-    <!-- Blog Section -->
-
-    <!-- End Blog Section -->
-
-
-    <!-- Newsletter Section -->
-
-    <!-- End Newsletter Section -->
-
-
-    <!-- Contact Section -->
-
-    <!-- End Contact Section -->
-
-
-    <!-- Google Map -->
-
-    <!-- End Google Map -->
-
-
-
-
 </div>
 <!-- End Page Wrap -->
 
@@ -282,6 +372,18 @@
 <script type="text/javascript" src="js/contact-form.js"></script>
 <script type="text/javascript" src="js/jquery.ajaxchimp.min.js"></script>
 <!--[if lt IE 10]><script type="text/javascript" src="js/placeholder.js"></script><![endif]-->
+
+<script>
+    function mostraemail(em){
+        var email = em;
+        alert(email)
+    }
+
+    function mostratelefono(tel){
+        var telefono = tel;
+        alert(telefono)
+    }
+</script>
 
 </body>
 </html>

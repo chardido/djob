@@ -18,6 +18,32 @@ if(isset($_POST['nome']) && isset($_POST['cognome']) && isset($_POST['nascita'])
     $competenze = $_POST['competenze'];
     $username = $_POST['username'];
     $password = $_POST['password'];
+
+    $esistente = false;
+
+    $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+    mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+    $query = "SELECT username, email FROM Utente";
+    $result = mysql_query($query) or die("QUERY FALLITA");
+
+    while($r = mysql_fetch_array($result,MYSQL_ASSOC)){
+        if(strcmp($r['email'],$email) == 0 || strcmp($r['username'],$username) == 0){
+            $esistente = true;
+        }
+    }
+
+
+
+    if($esistente == false){
+        $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+        mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+        $query = "INSERT INTO Utente VALUES ('','$nome','$cognome','$nascita','$email','$citta','$competenze','$esperienza','$titolo','$telefono','$indirizzo','$username','$password','Utente')";
+        $result = mysql_query($query) or die("QUERY FALLITA");
+        header("Location: index.php");
+    }else{
+        echo "Utente già presente nel database";
+    }
+
 }
 ?>
 <!DOCTYPE html>
@@ -147,10 +173,10 @@ if(isset($_POST['nome']) && isset($_POST['cognome']) && isset($_POST['nascita'])
                                                 <div class="col-md-6">
                                                     <select class="input-md form-control" name="esperienza">
                                                         <option value="" disabled selected>Anni di esperienza</option>
-                                                        <option value="0">0 anni</option>
-                                                        <option value="1">1-2 anni</option>
-                                                        <option value="2">2-5</option>
-                                                        <option value="3">5+</option>
+                                                        <option>0</option>
+                                                        <option>1-2</option>
+                                                        <option>2-5</option>
+                                                        <option>5+</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -270,56 +296,7 @@ if(isset($_POST['nome']) && isset($_POST['cognome']) && isset($_POST['nascita'])
             <!-- Divider -->
             <hr class="mt-0 mb-0 "/>
             <!-- End Divider -->
-            
-            <!-- Services Section -->
 
-            <!-- End Services Section -->
-            
-            
-            <!-- Call Action Section -->
-
-            <!-- End Call Action Section -->
-            
-            
-            <!-- Portfolio Section -->
-
-            <!-- End Portfolio Section -->
-            
-            
-            <!-- Call Action Section -->
-
-            <!-- End Call Action Section -->
-            
-            
-            <!-- Features Section -->
-
-            <!-- End Features Section -->
-            
-            
-            <!-- Testimonials Section -->
-
-            <!-- End Testimonials Section -->
-            
-            
-            <!-- Blog Section -->
-
-            <!-- End Blog Section -->
-            
-            
-            <!-- Newsletter Section -->
-
-            <!-- End Newsletter Section -->
-            
-            
-            <!-- Contact Section -->
-
-            <!-- End Contact Section -->
-            
-            
-            <!-- Google Map -->
-
-            <!-- End Google Map -->
-            
             
 
         

@@ -1,4 +1,39 @@
+<?php
+session_start();
 
+if(!isset($_SESSION['nomeutente'])){
+   header("Location: Login.php");
+}
+
+if(isset($_SESSION['nomeutente'])){
+    $nome = $_SESSION['nomeutente'];
+    $tipoutente = $_SESSION['tipoutente'];
+}
+
+if(isset($_POST['titolo']) && isset($_POST['settore']) && isset($_POST['descrizione']) && isset($_POST['luogo'])){
+    $titolo = $_POST['titolo'];
+    $settore = $_POST['settore'];
+    $descrizione = $_POST['descrizione'];
+    $luogo = $_POST['luogo'];
+
+    $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+    mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+    $query = "SELECT id FROM Utente WHERE username = '$nome'";
+    $result = mysql_query($query) or die("QUERY FALLITA");
+    $r = mysql_fetch_array($result,MYSQL_ASSOC);
+
+    $idutente = $r['id'];
+
+    $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+    mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+    $query = "INSERT INTO Annuncio VALUES ('','$titolo','$descrizione','$settore','$idutente','$luogo','$tipoutente') ";
+    $result = mysql_query($query) or die("QUERY FALLITA");
+
+}
+
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,55 +73,167 @@
 <!-- Page Wrap -->
 <div class="page" id="top">
 
-    <!-- Home Section -->
-    <section class="home-section bg-dark-alfa-30 parallax-2" data-background="images/full-width-images/section-bg-1.jpg" id="home">
-        <div class="js-height-full">
-            <section class="small-section">
+    <?php
+     if($tipoutente == "Azienda") {
+         ?>
+         <!-- INSERIMENTO AZIENDA -->
+         <section class="home-section bg-dark-alfa-30 parallax-2"
+                  data-background="images/full-width-images/section-bg-1.jpg" id="home">
+             <div class="js-height-full">
+                 <section class="small-section">
 
-                <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
-                        <h1 style="text-align: center">Inserisci Annuncio</h1>
-                    </div>
-                </div>
+                     <div class="row">
+                         <div class="col-md-3"></div>
+                         <div class="col-md-6">
+                             <h1 style="text-align: center">Inserisci Annuncio</h1>
+                         </div>
+                     </div>
 
-                <form action="" method="post">
-                    <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-6">
-                            <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Titolo annuncio.." maxlength="100">
-                        </div>
-                        <div class="col-md-2">
-                            <select class="input-md form-control">
-                                <option value="" disabled selected>Settore</option>
-                                <option>Settore 1</option>
-                                <option>Settore 2</option>
-                                <option>Settore 3</option>
-                            </select>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8">
-                            <textarea name="text" id="text" class="input-md form-control" rows="12" style="resize: none" placeholder="Maggiori informazioni.." length="400"></textarea>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div style="text-align: center">
-                            <a href="" class="btn btn-mod btn-w btn-circle btn-medium">Annulla</a>
-                            <input type="submit" value="Conferma" class="btn btn-mod btn-w btn-circle btn-medium">
-                        </div>
-                    </div>
-                </form>
+                     <form action="" method="post">
+                         <div class="row">
+                             <div class="col-md-2"></div>
+                             <div class="col-md-4">
+                                 <input type="text" name="titolo" id="name-2" class="input-md form-control"
+                                        placeholder="Titolo annuncio.." maxlength="100">
+                             </div>
+                             <div class="col-md-2">
+                                 <select class="input-md form-control" name="luogo">
+                                     <option value="" disabled selected>Luogo</option>
+                                     <?php
+                                     $conn = mysql_connect('localhost', 'djob', '') or die("CONNESSIONE DATABASE FALLITA");
+                                     mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+                                     $query = "SELECT nome FROM Luogo ORDER BY nome";
+                                     $result = mysql_query($query) or die("QUERY FALLITA");
+
+                                     while ($r = mysql_fetch_array($result, MYSQL_ASSOC)) {
+                                         echo "<option>" . $r['nome'] . "</option>";
+                                     }
+                                     ?>
+                                 </select>
+                             </div>
+                             <div class="col-md-2">
+                                 <select class="input-md form-control" name="settore">
+                                     <option value="" disabled selected>Settore</option>
+                                     <?php
+                                     $conn = mysql_connect('localhost', 'djob', '') or die("CONNESSIONE DATABASE FALLITA");
+                                     mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+                                     $query = "SELECT nome FROM Settore";
+                                     $result = mysql_query($query) or die("QUERY FALLITA");
+
+                                     while ($r = mysql_fetch_array($result, MYSQL_ASSOC)) {
+                                         echo "<option>" . $r['nome'] . "</option>";
+                                     }
+                                     ?>
+                                 </select>
+                             </div>
+                         </div>
+                         <br>
+                         <div class="row">
+                             <div class="col-md-2"></div>
+                             <div class="col-md-8">
+                                 <textarea name="descrizione" class="input-md form-control" rows="12"
+                                           style="resize: none" placeholder="Maggiori informazioni.."
+                                           length="400"></textarea>
+                             </div>
+                         </div>
+                         <br>
+                         <div class="row">
+                             <div style="text-align: center">
+                                 <a href="index.php" class="btn btn-mod btn-w btn-circle btn-medium">Annulla</a>
+                                 <input type="submit" value="Conferma" class="btn btn-mod btn-w btn-circle btn-medium">
+                             </div>
+                         </div>
+                     </form>
 
 
+                 </section>
+             </div>
+         </section>
+         <!-- End Home Section -->
 
-            </section>
-        </div>
-    </section>
-    <!-- End Home Section -->
+         <?php
+     }else {
+         ?>
+
+         <!-- INSERIMENTO PRIVATO -->
+         <section class="home-section bg-dark-alfa-30 parallax-2"
+                  data-background="images/full-width-images/section-bg-1.jpg" id="home">
+             <div class="js-height-full">
+                 <section class="small-section">
+
+                     <div class="row">
+                         <div class="col-md-3"></div>
+                         <div class="col-md-6">
+                             <h1 style="text-align: center">Inserisci Annuncio</h1>
+                         </div>
+                     </div>
+
+                     <form action="" method="post">
+                         <div class="row">
+                             <div class="col-md-2"></div>
+                             <div class="col-md-4">
+                                 <input type="text" name="titolo" id="name-2" class="input-md form-control"
+                                        placeholder="Titolo annuncio.." maxlength="100">
+                             </div>
+                             <div class="col-md-2">
+                                 <select class="input-md form-control" name="luogo">
+                                     <option value="" disabled selected>Luogo</option>
+                                     <?php
+                                     $conn = mysql_connect('localhost', 'djob', '') or die("CONNESSIONE DATABASE FALLITA");
+                                     mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+                                     $query = "SELECT nome FROM Luogo ORDER BY nome";
+                                     $result = mysql_query($query) or die("QUERY FALLITA");
+
+                                     while ($r = mysql_fetch_array($result, MYSQL_ASSOC)) {
+                                         echo "<option>" . $r['nome'] . "</option>";
+                                     }
+                                     ?>
+                                 </select>
+                             </div>
+                             <div class="col-md-2">
+                                 <select class="input-md form-control" name="settore">
+                                     <option value="" disabled selected>Settore</option>
+                                     <?php
+                                     $conn = mysql_connect('localhost', 'djob', '') or die("CONNESSIONE DATABASE FALLITA");
+                                     mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+                                     $query = "SELECT nome FROM Settore";
+                                     $result = mysql_query($query) or die("QUERY FALLITA");
+
+                                     while ($r = mysql_fetch_array($result, MYSQL_ASSOC)) {
+                                         echo "<option>" . $r['nome'] . "</option>";
+                                     }
+                                     ?>
+                                 </select>
+                             </div>
+                         </div>
+                         <br>
+                         <div class="row">
+                             <div class="col-md-2"></div>
+                             <div class="col-md-8">
+                                 <textarea name="descrizione" class="input-md form-control" rows="12"
+                                           style="resize: none" placeholder="Maggiori informazioni.."
+                                           length="400"></textarea>
+                             </div>
+                         </div>
+                         <br>
+                         <div class="row">
+                             <div style="text-align: center">
+                                 <a href="index.php" class="btn btn-mod btn-w btn-circle btn-medium">Annulla</a>
+                                 <input type="submit" value="Conferma" class="btn btn-mod btn-w btn-circle btn-medium">
+                             </div>
+                         </div>
+                     </form>
+
+
+                 </section>
+             </div>
+         </section>
+         <!-- End Home Section -->
+
+         <?php
+     }
+    ?>
+
 
     <!-- Navigation panel -->
     <nav class="main-nav dark transparent stick-fixed">
@@ -107,8 +254,29 @@
                     <li><a href="InserisciAnnuncio.php">Inserisci Annuncio</a></li>
                     <li><a href="RicercaAnnuncio.php">Ricerca Annuncio</a></li>
                     <li><a href="GestioneAnnunci.php">Gestione Annunci</a></li>
-                    <li><a href="GestioneProfilo.php">Gestione Profilo</a></li>
-                    <li><a href="">Microsoft</a></li>
+                    <?php
+                    if(isset($nome)){
+                        echo "<li><a href=\"GestioneProfilo.php\">Gestione Profilo</a></li>";
+                        echo "<li>
+                                <a href=\"\" class=\"mn-has-sub\" style=\"height: 75px; line-height: 75px;\">".$nome." <i class=\"fa fa-angle-down\"></i></a>
+
+                                <!-- Sub -->
+                                <ul class=\"mn-sub to-left\" style=\"display: none; opacity: 1;\">
+
+                                    <li>
+                                        <a href=\"logout.php\">Logout</a>
+                                    </li>
+
+                                </ul>
+                                <!-- End Sub -->
+
+                            </li>";
+                    }else{
+                        echo "<li><a href=\"Registrazione.php\">Registrati</a></li>";
+                        echo "<li><a href=\"Login.php\">Login</a></li>";
+                    }
+                    ?>
+
                 </ul>
             </div>
         </div>

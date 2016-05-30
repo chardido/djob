@@ -1,4 +1,26 @@
+<?php
+session_start();
 
+if(!isset($_SESSION['nomeutente'])){
+    header("Location: Login.php");
+}
+
+if(isset($_SESSION['nomeutente'])){
+    $nome = $_SESSION['nomeutente'];
+    $idutente = $_SESSION['idutente'];
+}
+
+if(isset($_POST['elimina'])){
+    $idannuncio = $_POST['idannuncio'];
+    $conn = mysql_connect('localhost','root','') or die("CONNESSIONE DATABASE FALLITA");
+    mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+    $query = "DELETE FROM Annuncio WHERE ID = '$idannuncio'";
+    $result = mysql_query($query) or die("QUERY FALLITA");
+
+}
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,6 +46,7 @@
     <link rel="stylesheet" href="css/vertical-rhythm.min.css">
     <link rel="stylesheet" href="css/owl.carousel.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/modifiche.css">
 
 
 </head>
@@ -55,52 +78,33 @@
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
                         <dl class="accordion">
-                            <!--INIZIO SINGOLO -->
-                            <dt>
-                                <a href="">Annuncio 1</a>
-                            </dt>
-                            <dd style="display: none;">
-                                Descrizione annuncio 1
-                                <div style="text-align: center">
-                                    <br>
-                                    <form action="" method="post">
-                                        <input type="button" value="Modifica" name="modifica" class="btn btn-mod btn-w btn-circle btn-medium">
-                                        <input type="submit" value="Elimina" class="btn btn-mod btn-w btn-circle btn-medium">
-                                    </form>
-                                </div>
-                            </dd>
-                            <!--FINE SINGOLO -->
+                            <?php
+                            if(isset($nome)){
+                                $conn = mysql_connect('localhost','root','') or die("CONNESSIONE DATABASE FALLITA");
+                                mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+                                $query = "SELECT * FROM Annuncio WHERE ID_Utente = '$idutente'";
+                                $result = mysql_query($query) or die("QUERY FALLITA");
+                                while($r = mysql_fetch_array($result,MYSQL_ASSOC)){
+                                    echo "<dt><a href=\"\">".$r['Titolo']." (".$r['Luogo'].")</a></dt>";
+                                    echo "<dd style=\"display: none;\">".$r['Descrizione'];
+                                    echo "<div style=\"text-align: center\"><br>";
+                                    echo "<form action=\"ModificaAnnuncio.php\" method=\"post\">";
+                                    printf("<input type=\"hidden\" name=\"idannuncio\" value=\"%d\">", $r['ID']);
+                                    printf("<input type=\"hidden\" name=\"modifica\" value=\"si\">", $r['ID']);
+                                    echo "<input type=\"submit\" value=\"Modifica\" name=\"modifica\" class=\"btn btn-mod btn-w btn-circle btn-medium\">";
+                                    echo "</form>";
+                                    echo "<form action=\"\" method=\"post\">";
+                                    printf("<input type=\"hidden\" name=\"idannuncio\" value=\"%d\">", $r['ID']);
+                                    printf("<input type=\"hidden\" name=\"elimina\" value=\"si\">", $r['ID']);
+                                    echo "<input type=\"submit\" value=\"Elimina\" class=\"btn btn-mod btn-w btn-circle btn-medium\">";
+                                    echo "</form>";
+                                    echo "</div>";
+                                    echo "</dd>";
+                                }
 
-                            <!--INIZIO SINGOLO -->
-                            <dt>
-                                <a href="">Annuncio 2</a>
-                            </dt>
-                            <dd style="display: none;">
-                                Descrizione annuncio 2
-                                <div style="text-align: center">
-                                    <br>
-                                    <form action="" method="post">
-                                        <input type="button" value="Modifica" name="modifica" class="btn btn-mod btn-w btn-circle btn-medium">
-                                        <input type="submit" value="Elimina" class="btn btn-mod btn-w btn-circle btn-medium">
-                                    </form>
-                                </div>
-                            </dd>
-                            <!--FINE SINGOLO -->
-                            <!--INIZIO SINGOLO -->
-                            <dt>
-                                <a href="">Annuncio 3</a>
-                            </dt>
-                            <dd style="display: none;">
-                                Descrizione annuncio 3
-                                <div style="text-align: center">
-                                    <br>
-                                    <form action="" method="post">
-                                        <input type="button" value="Modifica" name="modifica" class="btn btn-mod btn-w btn-circle btn-medium">
-                                        <input type="submit" value="Elimina" class="btn btn-mod btn-w btn-circle btn-medium">
-                                    </form>
-                                </div>
-                            </dd>
-                            <!--FINE SINGOLO -->
+                            }
+                            ?>
+
 
 
                         </dl>
@@ -132,8 +136,15 @@
                     <li><a href="InserisciAnnuncio.php">Inserisci Annuncio</a></li>
                     <li><a href="RicercaAnnuncio.php">Ricerca Annuncio</a></li>
                     <li><a href="GestioneAnnunci.php">Gestione Annunci</a></li>
-                    <li><a href="GestioneProfilo.php">Gestione Profilo</a></li>
-                    <li><a href="">Microsoft</a></li>
+                    <?php
+                    if(isset($nome)){
+                        echo "<li><a href=\"\">".$nome."</a></li>";
+                        echo "<li><a href=\"GestioneProfilo.php\">Gestione Profilo</a></li>";
+                    }else{
+                        echo "<li><a href=\"Registrazione.php\">Registrati</a></li>";
+                        echo "<li><a href=\"Login.php\">Login</a></li>";
+                    }
+                    ?>
                 </ul>
             </div>
         </div>
