@@ -2,6 +2,7 @@
 session_start();
 
 if(isset($_POST['modifica'])){
+    $nome = $_SESSION['nomeutente'];
     $idannuncio = $_POST['idannuncio'];
     $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
     mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");

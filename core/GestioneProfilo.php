@@ -57,10 +57,12 @@ if(isset($_POST['nome']) && isset($_POST['email']) && isset($_POST['citta']) && 
         $cittaMod = $_POST['citta'];
         $indirizzoMod = $_POST['indirizzo'];
         $telefonoMod = $_POST['telefono'];
-        $passwordMod = $passwordVecchia;
-        if(isset($_POST['passwordnuova'])){
+        $passwordMod = $password;
+        /*
+        if(!is_null($_POST['passwordnuova'])){
             $passwordMod = $_POST['passwordnuova'];
         }
+        */
 
         $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
         mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
@@ -93,10 +95,12 @@ if(isset($_POST['nome']) && isset($_POST['email']) && isset($_POST['citta']) && 
         $competenzeMod = $_POST['competenze'];
         $titoloMod = $_POST['titolo'];
         $esperienzaMod = $_POST['esperienza'];
-        $passwordMod = $passwordVecchia;
-        if(isset($_POST['passwordnuova'])){
+        $passwordMod = $password;
+        /*
+        if(!is_null($_POST['passwordnuova'])){
             $passwordMod = $_POST['passwordnuova'];
         }
+        */
 
         $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
         mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
@@ -193,7 +197,7 @@ if(isset($_POST['nome']) && isset($_POST['email']) && isset($_POST['citta']) && 
                                     <input type="text" name="username" id="name-2" class="input-md form-control" disabled="disabled" value="<?php echo $username; ?>" maxlength="100">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="password" name="passwordnuova" id="name-2" class="input-md form-control" placeholder="Nuova password" maxlength="100">
+                                    <input type="password" name="passwordnuova" id="name2" class="input-md form-control" placeholder="Nuova password" maxlength="100">
                                 </div>
                                 <div class="col-md-3">
                                     <input type="password" name="passwordvecchia" id="name-2" class="input-md form-control" placeholder="Vecchia password" maxlength="100">

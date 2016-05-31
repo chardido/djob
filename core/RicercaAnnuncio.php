@@ -8,6 +8,9 @@ if(isset($_SESSION['nomeutente'])){
 
 
 ?>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -148,7 +151,7 @@ if(isset($_SESSION['nomeutente'])){
                                             <?php
                                             $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
                                             mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
-                                            $query = "SELECT * FROM Annuncio, Utente WHERE Descrizione LIKE '%$parolachiave%' AND Luogo = '$luogo' AND Settore = '$settore' AND Utente.TitoloStudio = '$titolo' AND Utente.AnniEsperienza = '$esperienza'";
+                                            $query = "SELECT * FROM Annuncio, Utente WHERE Descrizione LIKE '%$parolachiave%' AND Luogo = '$luogo' AND Settore = '$settore' AND Utente.TitoloStudio = '$titolo' AND Utente.AnniEsperienza = '$esperienza' AND Annuncio.Tipo = 'Utente'";
                                             $result = mysql_query($query) or die("QUERY FALLITA");
 
                                             while($r = mysql_fetch_array($result,MYSQL_ASSOC)){

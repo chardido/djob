@@ -3,6 +3,7 @@ session_start();
 
 if(isset($_SESSION['nomeutente'])){
     $nome = $_SESSION['nomeutente'];
+    $tipo = $_SESSION['tipoutente'];
 }
 ?>
 <!DOCTYPE html>
@@ -43,68 +44,200 @@ if(isset($_SESSION['nomeutente'])){
         
         <!-- Page Wrap -->
         <div class="page" id="top">
-            
-            <!-- Home Section -->
-            <section class="home-section bg-dark-alfa-30 parallax-2" data-background="images/full-width-images/section-bg-1.jpg" id="home">
-                <div class="js-height-full">
-                    
-                    <!-- Hero Content -->
-                    <div class="home-content">
-                        <div class="home-text">
 
-                            <div class="col-md-12">
-                                <img src="images/logobianco.png"></img>
-                            </div>
+            <?php
+            if(isset($_SESSION['tipoutente'])){
+                ?>
 
+                <section class="home-section bg-dark-alfa-30 parallax-2" data-background="images/full-width-images/section-bg-1.jpg" id="home">
+                    <div class="js-height-full">
 
-                            <h1>
-                                Scegli il tuo lavoro, con Djob!
-                            </h1>
+                        <!-- Hero Content -->
+                        <div class="home-content">
+                            <div class="home-text">
 
-
-                            <form action="RicercaAnnuncio.php" method="POST">
                                 <div class="col-md-12">
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="input-md form-control" placeholder="Ricerca.."></input>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <select class="input-md form-control" name="settore">
-                                            <option value="" disabled selected>Settore</option>
-                                            <?php
-                                            $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
-                                            mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
-                                            $query = "SELECT nome FROM Settore";
-                                            $result = mysql_query($query) or die("QUERY FALLITA");
-
-                                            while($r = mysql_fetch_array($result,MYSQL_ASSOC)){
-                                                echo "<option>".$r['nome']."</option>";
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
+                                    <img src="images/logobianco.png">
                                 </div>
-                                <div class="col-md-12">
+
+
+                                <h1>
+                                    Scegli il tuo lavoro, con Djob!
+                                </h1>
+
+
+                                <form action="RicercaAnnuncio.php" method="POST">
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8">
+                                            <input type="text" name="parolachiave" class="input-md form-control" placeholder="Ricerca..">
+                                        </div>
+                                    </div>
                                     <br>
-                                    <div class="col-md-12">
-                                        <input type="submit" value="Cerca" class="btn btn-mod btn-w btn-circle btn-medium">
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-2">
+                                            <select class="input-md form-control" name="settore">
+                                                <option value="" disabled selected>Settore</option>
+                                                <?php
+                                                $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+                                                mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+                                                $query = "SELECT nome FROM Settore";
+                                                $result = mysql_query($query) or die("QUERY FALLITA");
+
+                                                while($r = mysql_fetch_array($result,MYSQL_ASSOC)){
+                                                    echo "<option>".$r['nome']."</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <select class="input-md form-control" name="luogo">
+                                                <option value="" disabled selected>Luogo</option>
+                                                <?php
+                                                $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+                                                mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+                                                $query = "SELECT nome FROM Luogo ORDER BY nome";
+                                                $result = mysql_query($query) or die("QUERY FALLITA");
+
+                                                while($r = mysql_fetch_array($result,MYSQL_ASSOC)){
+                                                    echo "<option>".$r['nome']."</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <select class="input-md form-control" name="titolo">
+                                                <option value="" disabled selected>Titolo di studio</option>
+                                                <option>Nessuno</option>
+                                                <option>Scuola elementare</option>
+                                                <option>Scuola Media Inferiore</option>
+                                                <option>Scuola Media Superiore</option>
+                                                <option>Laurea Triennale</option>
+                                                <option>Laurea Magistrale</option>
+                                                <option>Dottorato di Ricerca</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <select class="input-md form-control" name="esperienza">
+                                                <option value="" disabled selected>Anni esperienza</option>
+                                                <option>0</option>
+                                                <option>1-2</option>
+                                                <option>2-5</option>
+                                                <option>5+</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
-                            
+                                    <br>
+                                    <div class="row">
+                                        <div style="text-align: center">
+                                            <input type="submit" value="Cerca" class="btn btn-mod btn-w btn-circle btn-medium">
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                            </div>
                         </div>
+                        <!-- End Hero Content -->
+
+                        <!-- Scroll Down -->
+                        <div class="local-scroll">
+                            <a href="#about" class="scroll-down"><i class="fa fa-angle-down scroll-down-icon"></i></a>
+                        </div>
+                        <!-- End Scroll Down -->
+
                     </div>
-                    <!-- End Hero Content -->
-                    
-                    <!-- Scroll Down -->
-                    <div class="local-scroll">
-                        <a href="#about" class="scroll-down"><i class="fa fa-angle-down scroll-down-icon"></i></a>
+                </section>
+
+            <?php
+            }else {
+                ?>
+
+
+                <!-- Home Section -->
+                <section class="home-section bg-dark-alfa-30 parallax-2"
+                         data-background="images/full-width-images/section-bg-1.jpg" id="home">
+                    <div class="js-height-full">
+
+                        <!-- Hero Content -->
+                        <div class="home-content">
+                            <div class="home-text">
+
+                                <div class="col-md-12">
+                                    <img src="images/logobianco.png">
+                                </div>
+
+
+                                <h1>
+                                    Scegli il tuo lavoro, con Djob!
+                                </h1>
+
+
+                                <form action="RicercaAnnuncio.php" method="POST">
+                                    <div class="col-md-12">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-4">
+                                            <input type="text" name="parolachiave" class="input-md form-control"
+                                                   placeholder="Ricerca..">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <select class="input-md form-control" name="luogo">
+                                                <option value="" disabled selected>Luogo</option>
+                                                <?php
+                                                $conn = mysql_connect('localhost', 'djob', '') or die("CONNESSIONE DATABASE FALLITA");
+                                                mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+                                                $query = "SELECT nome FROM Luogo ORDER BY nome";
+                                                $result = mysql_query($query) or die("QUERY FALLITA");
+
+                                                while ($r = mysql_fetch_array($result, MYSQL_ASSOC)) {
+                                                    echo "<option>" . $r['nome'] . "</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <select class="input-md form-control" name="settore">
+                                                <option value="" disabled selected>Settore</option>
+                                                <?php
+                                                $conn = mysql_connect('localhost', 'djob', '') or die("CONNESSIONE DATABASE FALLITA");
+                                                mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+                                                $query = "SELECT nome FROM Settore";
+                                                $result = mysql_query($query) or die("QUERY FALLITA");
+
+                                                while ($r = mysql_fetch_array($result, MYSQL_ASSOC)) {
+                                                    echo "<option>" . $r['nome'] . "</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <br>
+                                        <div class="col-md-12">
+                                            <input type="submit" value="Cerca"
+                                                   class="btn btn-mod btn-w btn-circle btn-medium">
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                        <!-- End Hero Content -->
+
+                        <!-- Scroll Down -->
+                        <div class="local-scroll">
+                            <a href="#about" class="scroll-down"><i class="fa fa-angle-down scroll-down-icon"></i></a>
+                        </div>
+                        <!-- End Scroll Down -->
+
                     </div>
-                    <!-- End Scroll Down -->
-                    
-                </div>
-            </section>
-            <!-- End Home Section -->
+                </section>
+                <!-- End Home Section -->
+
+                <?php
+            }
+            ?>
             
             <!-- Navigation panel -->
             <nav class="main-nav dark transparent stick-fixed">
