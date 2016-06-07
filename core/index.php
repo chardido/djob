@@ -298,34 +298,18 @@ if(isset($_SESSION['nomeutente'])){
             <section class="page-section" id="about">
                 <div class="container relative">
 
-                    <h2 class="section-title font-alt align-left mb-70 mb-sm-40">
-                        About Studio
-                    </h2>
 
-                    <div class="section-text mb-50 mb-sm-20">
-                        <div class="row">
+                    <h1 class="align-center">
+                        Cos'&egrave; Djob?
+                    </h1>
 
-                            <div class="col-md-4">
-                                <blockquote>
-                                    <p>
-                                    Design is&nbsp;not making beauty, beauty emerges from selection, affinities, integration, love.
-                                    </p>
-                                    <footer>
-                                        Louis Kahn
-                                    </footer>
-                                </blockquote>
-                            </div>
+                        <div class="row align-center">
 
-                            <div class="col-md-4 col-sm-6 mb-sm-50 mb-xs-30">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In maximus ligula semper metus pellentesque mattis. Maecenas  volutpat, diam enim sagittis quam, id porta quam. Sed id dolor consectetur fermentum nibh volutpat, accumsan purus.
-                            </div>
-
-                            <div class="col-md-4 col-sm-6 mb-sm-50 mb-xs-30">
-                                Etiam sit amet fringilla lacus. Pellentesque suscipit ante at ullamcorper pulvinar neque porttitor. Integer lectus. Praesent sed nisi eleifend, fermentum orci amet, iaculis libero. Donec vel ultricies purus. Nam dictum sem, eu aliquam.
-                            </div>
+                            <h3>Djob &egrave; la nuova piattaforma che permette ad utenti diversamente abili di cercare il lavoro ideale!</h3>
+                            <br>
+                            <h5>La sua semplicit&agrave; e immediatezza permettono all'utente una ricerca efficace e veloce.</h5>
 
                         </div>
-                    </div>
 
                 </div>
             </section>
@@ -341,26 +325,18 @@ if(isset($_SESSION['nomeutente'])){
 
                     <!-- Footer Logo -->
                     <div class="local-scroll mb-30 wow fadeInUp" data-wow-duration="1.5s">
-                        <a href="#top"><img src="images/logo-footer.png" width="78" height="36" alt="" /></a>
+                        <a href="#top"><img src="images/logo-nero.png" width="78" height="36" alt="" /></a>
                     </div>
                     <!-- End Footer Logo -->
 
-                    <!-- Social Links -->
-                    <div class="footer-social-links mb-110 mb-xs-60">
-                        <a href="#" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a>
-                        <a href="#" title="Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
-                        <a href="#" title="Behance" target="_blank"><i class="fa fa-behance"></i></a>
-                        <a href="#" title="LinkedIn+" target="_blank"><i class="fa fa-linkedin"></i></a>
-                        <a href="#" title="Pinterest" target="_blank"><i class="fa fa-pinterest"></i></a>
-                    </div>
-                    <!-- End Social Links -->
+
 
                     <!-- Footer Text -->
                     <div class="footer-text">
 
                         <!-- Copyright -->
                         <div class="footer-copy font-alt">
-                            <a href="http://themeforest.net/user/theme-guru/portfolio" target="_blank">&copy; Rhythm 2016</a>.
+                            <a href="http://themeforest.net/user/theme-guru/portfolio" target="_blank">&copy; Djob 2016</a>.
                         </div>
                         <!-- End Copyright -->
                         <div class="footer-made">
