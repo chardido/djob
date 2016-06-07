@@ -5,6 +5,43 @@ if(isset($_SESSION['nomeutente'])){
     header("Location: index.php");
 }
 
+if(isset($_POST['azienda']) && isset($_POST['nomeazienda']) && isset($_POST['emailazienda']) && isset($_POST['cittaazienda']) && isset($_POST['indirizzoazienda']) && isset($_POST['telefonoazienda']) && isset($_POST['username']) && isset($_POST['password']) ){
+    $nome = $_POST['nomeazienda'];
+    $email = $_POST['emailazienda'];
+    $citta = $_POST['cittaazienda'];
+    $indirizzo = $_POST['indirizzoazienda'];
+    $telefono = $_POST['telefonoazienda'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+
+    $esistente = false;
+
+    $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+    mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+    $query = "SELECT username, email FROM Utente";
+    $result = mysql_query($query) or die("QUERY FALLITA (select): " .mysql_error());
+
+    while($r = mysql_fetch_array($result,MYSQL_ASSOC)){
+        if(strcmp($r['email'],$email) == 0 || strcmp($r['username'],$username) == 0){
+            $esistente = true;
+        }
+    }
+
+
+
+    if($esistente == false){
+        $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+        mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+        $query = "INSERT INTO Utente VALUES ('','$nome','','','$email','$citta','','','','$telefono','$indirizzo','$username','$password','Azienda')";
+        $result = mysql_query($query) or die("QUERY FALLITA(insert): ".mysql_error());
+        header("Location: index.php");
+    }else{
+        echo "Utente già presente nel database";
+    }
+
+}
+
 if(isset($_POST['nome']) && isset($_POST['cognome']) && isset($_POST['nascita']) && isset($_POST['email']) && isset($_POST['citta']) && isset($_POST['indirizzo']) && isset($_POST['telefono']) && isset($_POST['titolo']) && isset($_POST['esperienza']) && isset($_POST['competenze']) && isset($_POST['username']) && isset($_POST['password'])){
     $nome = $_POST['nome'];
     $cognome = $_POST['cognome'];
@@ -209,40 +246,41 @@ if(isset($_POST['nome']) && isset($_POST['cognome']) && isset($_POST['nascita'])
                                         <form action="" method="post">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Nome azienda" maxlength="100">
+                                                    <input type="text" name="nomeazienda" id="name-2" class="input-md form-control" placeholder="Nome azienda" maxlength="100">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Email" maxlength="100">
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Città" maxlength="100">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Indirizzo" maxlength="100">
+                                                    <input type="text" name="emailazienda" id="name-2" class="input-md form-control" placeholder="Email" maxlength="100">
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Telefono" maxlength="100">
+                                                    <input type="text" name="cittaazienda" id="name-2" class="input-md form-control" placeholder="Città" maxlength="100">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="indirizzoazienda" id="name-2" class="input-md form-control" placeholder="Indirizzo" maxlength="100">
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Username" maxlength="100">
+                                                    <input type="text" name="telefonoazienda" id="name-2" class="input-md form-control" placeholder="Telefono" maxlength="100">
+                                                </div>
+                                                <input type="hidden" name="azienda">
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <input type="text" name="username" id="name-2" class="input-md form-control" placeholder="Username" maxlength="100">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="name" id="name-2" class="input-md form-control" placeholder="Password" maxlength="100">
+                                                    <input type="password" name="password" id="name-2" class="input-md form-control" placeholder="Password" maxlength="100">
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="col-md-12">
-                                                <input type="button" value="Annulla" class="btn btn-mod btn-w btn-circle btn-medium">
-                                                <input type="button" value="Conferma" class="btn btn-mod btn-w btn-circle btn-medium">
+                                                <a href="index.php" class="btn btn-mod btn-w btn-circle btn-medium">Annulla</a>
+                                                <input type="submit" value="Conferma" class="btn btn-mod btn-w btn-circle btn-medium">
                                             </div>
                                         </form>
                                     </div>
@@ -278,9 +316,11 @@ if(isset($_POST['nome']) && isset($_POST['cognome']) && isset($_POST['nascita'])
                     <div class="inner-nav desktop-nav">
                         <ul class="clearlist scroll-nav local-scroll">
                             <li><a href="index.php">Home</a></li>
+                            <li><a href="TuttiAnnunci.php">Tutti gli Annunci</a></li>
                             <li><a href="InserisciAnnuncio.php">Inserisci Annuncio</a></li>
                             <li><a href="RicercaAnnuncio.php">Ricerca Annuncio</a></li>
                             <li><a href="GestioneAnnunci.php">Gestione Annunci</a></li>
+                            <li><a href="Contattaci.php">Contattaci</a></li>
                             <li class="active"><a href="Registrazione.php">Registrati</a></li>
                             <li><a href="Login.php">Login</a></li>
                         </ul>

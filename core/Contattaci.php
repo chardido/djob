@@ -1,42 +1,22 @@
 <?php
 session_start();
 
-if(isset($_POST['modifica'])){
-    $nome = $_SESSION['nomeutente'];
-    $idannuncio = $_POST['idannuncio'];
+if(isset($_POST['contatti'])){
+
+    $suggerimenti = $_POST['contatti'];
+
     $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
     mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
-    $query = "SELECT * FROM Annuncio WHERE ID = '$idannuncio'";
-    $result = mysql_query($query) or die("QUERY FALLITA");
-    $r = mysql_fetch_assoc($result);
-    $titolo = $r['Titolo'];
-    $descrizione = $r['Descrizione'];
-    $Id = $r['ID'];
-}else {
+    $query = "INSERT INTO Suggerimenti VALUES ('$suggerimenti')";
+    $result = mysql_query($query) or die("QUERY FALLITA (insert): " .mysql_error());
     header("Location: index.php");
 }
 
-
-if(isset($_POST['idannuncio2']) && isset($_POST['titolo']) && isset($_POST['descrizione']) && isset($_POST['settore']) && isset($_POST['luogo'])){
-    $idannuncio = $_POST['idannuncio2'];
-    $titoloMod = $_POST['titolo'];
-    $descrizioneMod = $_POST['descrizione'];
-    $settoreMod = $_POST['settore'];
-    $luogoMod =  $_POST['luogo'];
-    $tipoutente = $_SESSION['tipoutente'];
-
-    $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
-    mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
-    $query = "UPDATE Annuncio SET Titolo = '$titoloMod', Descrizione = '$descrizioneMod', Settore = '$settoreMod', Luogo = '$luogoMod', Tipo = '$tipoutente' WHERE ID = '$idannuncio'";
-    $result = mysql_query($query) or die("QUERY FALLITA");
-    header("Location: GestioneAnnunci.php");
-
-}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>DJob | Modifica Annuncio</title>
+    <title>DJob | Contattaci</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta charset="utf-8">
@@ -72,83 +52,29 @@ if(isset($_POST['idannuncio2']) && isset($_POST['titolo']) && isset($_POST['desc
 <!-- Page Wrap -->
 <div class="page" id="top">
 
-    <!-- Home Section -->
     <section class="home-section bg-dark-alfa-30 parallax-2" data-background="images/full-width-images/section-bg-1.jpg" id="home">
         <div class="js-height-full">
             <section class="small-section">
-
                 <div class="row">
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
-                        <h1 style="text-align: center">Modifica Annuncio</h1>
+                        <h1 style="text-align: center">Hai qualche suggerimento? Contattaci!</h1>
                     </div>
                 </div>
 
+
                 <form action="" method="post">
-                    <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-4">
-                            <input type="text" name="titolo" id="name-2" class="input-md form-control" value="<?php echo $titolo; ?>" maxlength="100">
-                        </div>
-                        <div class="col-md-2">
-                            <select class="input-md form-control" name="luogo">
-                                <option value="" disabled>Luogo</option>
-                                <?php
-                                $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
-                                mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
-                                $query = "SELECT nome FROM Luogo ORDER BY nome";
-                                $query2 = "SELECT Luogo FROM Annuncio WHERE ID = '$idannuncio'";
-                                $result = mysql_query($query) or die("QUERY1 FALLITA: ".mysql_error());
-                                $result2 = mysql_query($query2) or die("QUERY2 FALLITA ".mysql_error());
-                                $r2 = mysql_fetch_array($result2,MYSQL_ASSOC);
-
-                                while($r = mysql_fetch_array($result,MYSQL_ASSOC)){
-                                    if(strcmp($r['nome'], $r2['Luogo']) == 0){
-                                        echo "<option selected>" . $r['nome'] . "</option>";
-                                    }else {
-                                        echo "<option>" . $r['nome'] . "</option>";
-                                    }
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <select class="input-md form-control" name="settore">
-                                <option value="" disabled selected>Settore</option>
-                                <?php
-                                $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
-                                mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
-                                $query = "SELECT nome FROM Settore";
-                                $query2 = "SELECT Settore FROM Annuncio WHERE ID = '$idannuncio'";
-                                $result2 = mysql_query($query2) or die("QUERY2 FALLITA ".mysql_error());
-                                $r2 = mysql_fetch_array($result2,MYSQL_ASSOC);
-
-                                $result = mysql_query($query) or die("QUERY FALLITA");
-
-                                while($r = mysql_fetch_array($result,MYSQL_ASSOC)){
-                                    if(strcmp($r['nome'], $r2['Settore']) == 0) {
-                                        echo "<option selected>" . $r['nome'] . "</option>";
-                                    }else {
-                                        echo "<option>" . $r['nome'] . "</option>";
-                                    }
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
+                <div class="row">
                         <div class="col-md-2"></div>
                         <div class="col-md-8">
-                            <textarea name="descrizione" id="text" class="input-md form-control" rows="12" style="resize: none" length="400"><?php echo htmlentities($descrizione); ?></textarea>
+                            <textarea style="resize: none;" name="contatti" id="text" class="input-md form-control" rows="12" placeholder="Suggerimenti.."></textarea>
                         </div>
-                    </div>
+                </div>
                     <br>
                     <div class="row">
-                        <div style="text-align: center">
-                            <a href="GestioneAnnunci.php" class="btn btn-mod btn-w btn-circle btn-medium">Annulla</a>
-                            <input type="hidden" value="<?php echo $Id; ?>" name="idannuncio2">
-                            <input type="submit" value="Modifica" class="btn btn-mod btn-w btn-circle btn-medium">
+                        <div class="col-md-12" style="text-align: center;">
+                            <a href="index.php" class="btn btn-mod btn-w btn-circle btn-medium">Annulla</a>
+                            <input type="submit" value="Conferma" class="btn btn-mod btn-w btn-circle btn-medium">
                         </div>
                     </div>
                 </form>
@@ -158,7 +84,7 @@ if(isset($_POST['idannuncio2']) && isset($_POST['titolo']) && isset($_POST['desc
             </section>
         </div>
     </section>
-    <!-- End Home Section -->
+
 
     <!-- Navigation panel -->
     <nav class="main-nav dark transparent stick-fixed">
@@ -210,6 +136,7 @@ if(isset($_POST['idannuncio2']) && isset($_POST['titolo']) && isset($_POST['desc
     <!-- End Navigation panel -->
 
 
+    <!-- About Section -->
     <!-- End About Section -->
 
     <!-- Divider -->
@@ -248,6 +175,7 @@ if(isset($_POST['idannuncio2']) && isset($_POST['titolo']) && isset($_POST['desc
 <script type="text/javascript" src="js/contact-form.js"></script>
 <script type="text/javascript" src="js/jquery.ajaxchimp.min.js"></script>
 <!--[if lt IE 10]><script type="text/javascript" src="js/placeholder.js"></script><![endif]-->
+
 
 </body>
 </html>

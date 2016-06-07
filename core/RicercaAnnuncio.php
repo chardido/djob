@@ -53,7 +53,8 @@ if(isset($_SESSION['nomeutente'])){
     <?php if(isset($tipoutente) && $tipoutente == "Azienda"){?>
 
     <section class="home-section bg-dark-alfa-30 parallax-2" data-background="images/full-width-images/section-bg-1.jpg" id="home">
-            <section class="small-section">
+        <div class="js-height-full">
+        <section class="small-section">
                 <div class="row">
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
@@ -105,7 +106,7 @@ if(isset($_SESSION['nomeutente'])){
                             <select class="input-md form-control" name="titolo">
                                 <option value="" disabled selected>Titolo di studio</option>
                                 <option>Nessuno</option>
-                                <option>Scuola elementare</option>
+                                <option>Scuola Elementare</option>
                                 <option>Scuola Media Inferiore</option>
                                 <option>Scuola Media Superiore</option>
                                 <option>Laurea Triennale</option>
@@ -184,6 +185,7 @@ if(isset($_SESSION['nomeutente'])){
 
 
             </section>
+            </div>
     </section>
 
     <?php }else{ ?>
@@ -193,7 +195,8 @@ if(isset($_SESSION['nomeutente'])){
 
 
     <section class="home-section bg-dark-alfa-30 parallax-2" data-background="images/full-width-images/section-bg-1.jpg" id="home">
-            <section class="small-section">
+        <div class="js-height-full">
+        <section class="small-section">
                 <div class="row">
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
@@ -294,6 +297,7 @@ if(isset($_SESSION['nomeutente'])){
 
 
             </section>
+            </div>
     </section>
 
 
@@ -315,14 +319,15 @@ if(isset($_SESSION['nomeutente'])){
             <div class="inner-nav desktop-nav">
                 <ul class="clearlist scroll-nav local-scroll">
                     <li><a href="index.php">Home</a></li>
+                    <li><a href="TuttiAnnunci.php">Tutti gli Annunci</a></li>
                     <li><a href="InserisciAnnuncio.php">Inserisci Annuncio</a></li>
                     <li><a href="RicercaAnnuncio.php">Ricerca Annuncio</a></li>
                     <li><a href="GestioneAnnunci.php">Gestione Annunci</a></li>
+                    <li><a href="Contattaci.php">Contattaci</a></li>
                     <?php
                     if(isset($nome)){
-                        echo "<li><a href=\"GestioneProfilo.php\">Gestione Profilo</a></li>";
                         echo "<li>
-                                <a href=\"\" class=\"mn-has-sub\" style=\"height: 75px; line-height: 75px;\">".$nome." <i class=\"fa fa-angle-down\"></i></a>
+                                <a href=\"GestioneProfilo.php\" class=\"mn-has-sub\" style=\"height: 75px; line-height: 75px;\">".$nome." <i class=\"fa fa-angle-down\"></i></a>
 
                                 <!-- Sub -->
                                 <ul class=\"mn-sub to-left\" style=\"display: none; opacity: 1;\">

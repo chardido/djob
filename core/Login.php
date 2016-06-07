@@ -133,9 +133,11 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                     <div class="inner-nav desktop-nav">
                         <ul class="clearlist scroll-nav local-scroll">
                             <li><a href="index.php">Home</a></li>
+                            <li><a href="TuttiAnnunci.php">Tutti gli Annunci</a></li>
                             <li><a href="InserisciAnnuncio.php">Inserisci Annuncio</a></li>
                             <li><a href="RicercaAnnuncio.php">Ricerca Annuncio</a></li>
                             <li><a href="GestioneAnnunci.php">Gestione Annunci</a></li>
+                            <li><a href="Contattaci.php">Contattaci</a></li>
                             <li><a href="Registrazione.php">Registrati</a></li>
                             <li class="active"><a href="Login.php">Login</a></li>
                         </ul>

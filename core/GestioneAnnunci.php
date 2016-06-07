@@ -133,13 +133,27 @@ if(isset($_POST['elimina'])){
             <div class="inner-nav desktop-nav">
                 <ul class="clearlist scroll-nav local-scroll">
                     <li><a href="index.php">Home</a></li>
+                    <li><a href="TuttiAnnunci.php">Tutti gli Annunci</a></li>
                     <li><a href="InserisciAnnuncio.php">Inserisci Annuncio</a></li>
                     <li><a href="RicercaAnnuncio.php">Ricerca Annuncio</a></li>
                     <li><a href="GestioneAnnunci.php">Gestione Annunci</a></li>
+                    <li><a href="Contattaci.php">Contattaci</a></li>
                     <?php
                     if(isset($nome)){
-                        echo "<li><a href=\"\">".$nome."</a></li>";
-                        echo "<li><a href=\"GestioneProfilo.php\">Gestione Profilo</a></li>";
+                        echo "<li>
+                                <a href=\"GestioneProfilo.php\" class=\"mn-has-sub\" style=\"height: 75px; line-height: 75px;\">".$nome." <i class=\"fa fa-angle-down\"></i></a>
+
+                                <!-- Sub -->
+                                <ul class=\"mn-sub to-left\" style=\"display: none; opacity: 1;\">
+
+                                    <li>
+                                        <a href=\"logout.php\">Logout</a>
+                                    </li>
+
+                                </ul>
+                                <!-- End Sub -->
+
+                            </li>";
                     }else{
                         echo "<li><a href=\"Registrazione.php\">Registrati</a></li>";
                         echo "<li><a href=\"Login.php\">Login</a></li>";

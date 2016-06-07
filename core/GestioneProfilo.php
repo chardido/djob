@@ -58,11 +58,10 @@ if(isset($_POST['nome']) && isset($_POST['email']) && isset($_POST['citta']) && 
         $indirizzoMod = $_POST['indirizzo'];
         $telefonoMod = $_POST['telefono'];
         $passwordMod = $password;
-        /*
-        if(!is_null($_POST['passwordnuova'])){
+
+        if(isset($_POST['passwordnuova']) && !empty($_POST['passwordnuova'])){
             $passwordMod = $_POST['passwordnuova'];
         }
-        */
 
         $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
         mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
@@ -96,11 +95,11 @@ if(isset($_POST['nome']) && isset($_POST['email']) && isset($_POST['citta']) && 
         $titoloMod = $_POST['titolo'];
         $esperienzaMod = $_POST['esperienza'];
         $passwordMod = $password;
-        /*
-        if(!is_null($_POST['passwordnuova'])){
+
+        if(isset($_POST['passwordnuova']) && !empty($_POST['passwordnuova'])){
             $passwordMod = $_POST['passwordnuova'];
         }
-        */
+
 
         $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
         mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
@@ -269,14 +268,25 @@ if(isset($_POST['nome']) && isset($_POST['email']) && isset($_POST['citta']) && 
                                 </div>
                                 <div class="col-md-6">
                                     <select class="input-md form-control" name="titolo">
-                                        <option value="" disabled selected>Titolo di studio</option>
-                                        <option>Nessuno</option>
-                                        <option>Scuola elementare</option>
-                                        <option>Scuola Media Inferiore</option>
-                                        <option>Scuola Media Superiore</option>
-                                        <option>Laurea Triennale</option>
-                                        <option>Laurea Magistrale</option>
-                                        <option>Dottorato di Ricerca</option>
+                                        <option value="" disabled>Titolo di studio</option>
+                                        <?php
+                                        $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+                                        mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+                                        $query = "SELECT nome FROM TitoloStudio";
+                                        $query2 = "SELECT TitoloStudio FROM Utente WHERE ID = '$idutente'";
+                                        $result2 = mysql_query($query2) or die("QUERY2 FALLITA ".mysql_error());
+                                        $r2 = mysql_fetch_array($result2,MYSQL_ASSOC);
+
+                                        $result = mysql_query($query) or die("QUERY FALLITA");
+
+                                        while($r = mysql_fetch_array($result,MYSQL_ASSOC)){
+                                            if(strcmp($r['nome'], $r2['TitoloStudio']) == 0) {
+                                                echo "<option selected>" . $r['nome'] . "</option>";
+                                            }else {
+                                                echo "<option>" . $r['nome'] . "</option>";
+                                            }
+                                        }
+                                        ?>
                                     </select>
                                 </div>
                             </div>
@@ -284,11 +294,25 @@ if(isset($_POST['nome']) && isset($_POST['email']) && isset($_POST['citta']) && 
                             <div class="row">
                                 <div class="col-md-6">
                                     <select class="input-md form-control" name="esperienza">
-                                        <option value="" disabled selected>Anni di esperienza</option>
-                                        <option>0</option>
-                                        <option>1-2</option>
-                                        <option>2-5</option>
-                                        <option>5+</option>
+                                        <option value="" disabled>Anni di esperienza</option>
+                                        <?php
+                                        $conn = mysql_connect('localhost','djob','') or die("CONNESSIONE DATABASE FALLITA");
+                                        mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
+                                        $query = "SELECT nome FROM AnniEsperienza";
+                                        $query2 = "SELECT AnniEsperienza FROM Utente WHERE ID = '$idutente'";
+                                        $result2 = mysql_query($query2) or die("QUERY2 FALLITA ".mysql_error());
+                                        $r2 = mysql_fetch_array($result2,MYSQL_ASSOC);
+
+                                        $result = mysql_query($query) or die("QUERY FALLITA");
+
+                                        while($r = mysql_fetch_array($result,MYSQL_ASSOC)){
+                                            if(strcmp($r['nome'], $r2['AnniEsperienza']) == 0) {
+                                                echo "<option selected>" . $r['nome'] . "</option>";
+                                            }else {
+                                                echo "<option>" . $r['nome'] . "</option>";
+                                            }
+                                        }
+                                        ?>
                                     </select>
                                 </div>
                             </div>
@@ -342,14 +366,15 @@ if(isset($_POST['nome']) && isset($_POST['email']) && isset($_POST['citta']) && 
             <div class="inner-nav desktop-nav">
                 <ul class="clearlist scroll-nav local-scroll">
                     <li><a href="index.php">Home</a></li>
+                    <li><a href="TuttiAnnunci.php">Tutti gli Annunci</a></li>
                     <li><a href="InserisciAnnuncio.php">Inserisci Annuncio</a></li>
                     <li><a href="RicercaAnnuncio.php">Ricerca Annuncio</a></li>
                     <li><a href="GestioneAnnunci.php">Gestione Annunci</a></li>
+                    <li><a href="Contattaci.php">Contattaci</a></li>
                     <?php
                     if(isset($nome)){
-                        echo "<li><a href=\"GestioneProfilo.php\">Gestione Profilo</a></li>";
                         echo "<li>
-                                <a href=\"\" class=\"mn-has-sub\" style=\"height: 75px; line-height: 75px;\">".$nome." <i class=\"fa fa-angle-down\"></i></a>
+                                <a href=\"GestioneProfilo.php\" class=\"mn-has-sub\" style=\"height: 75px; line-height: 75px;\">".$nome." <i class=\"fa fa-angle-down\"></i></a>
 
                                 <!-- Sub -->
                                 <ul class=\"mn-sub to-left\" style=\"display: none; opacity: 1;\">

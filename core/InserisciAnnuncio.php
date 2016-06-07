@@ -28,6 +28,7 @@ if(isset($_POST['titolo']) && isset($_POST['settore']) && isset($_POST['descrizi
     mysql_select_db('my_djob') or die("SELEZIONE DATABASE FALLITA");
     $query = "INSERT INTO Annuncio VALUES ('','$titolo','$descrizione','$settore','$idutente','$luogo','$tipoutente') ";
     $result = mysql_query($query) or die("QUERY FALLITA");
+    header("Location: GestioneAnnunci.php");
 
 }
 
@@ -251,14 +252,15 @@ if(isset($_POST['titolo']) && isset($_POST['settore']) && isset($_POST['descrizi
             <div class="inner-nav desktop-nav">
                 <ul class="clearlist scroll-nav local-scroll">
                     <li><a href="index.php">Home</a></li>
+                    <li><a href="TuttiAnnunci.php">Tutti gli Annunci</a></li>
                     <li><a href="InserisciAnnuncio.php">Inserisci Annuncio</a></li>
                     <li><a href="RicercaAnnuncio.php">Ricerca Annuncio</a></li>
                     <li><a href="GestioneAnnunci.php">Gestione Annunci</a></li>
+                    <li><a href="Contattaci.php">Contattaci</a></li>
                     <?php
                     if(isset($nome)){
-                        echo "<li><a href=\"GestioneProfilo.php\">Gestione Profilo</a></li>";
                         echo "<li>
-                                <a href=\"\" class=\"mn-has-sub\" style=\"height: 75px; line-height: 75px;\">".$nome." <i class=\"fa fa-angle-down\"></i></a>
+                                <a href=\"GestioneProfilo.php\" class=\"mn-has-sub\" style=\"height: 75px; line-height: 75px;\">".$nome." <i class=\"fa fa-angle-down\"></i></a>
 
                                 <!-- Sub -->
                                 <ul class=\"mn-sub to-left\" style=\"display: none; opacity: 1;\">

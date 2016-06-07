@@ -46,7 +46,7 @@ if(isset($_SESSION['nomeutente'])){
         <div class="page" id="top">
 
             <?php
-            if(isset($_SESSION['tipoutente'])){
+            if(isset($_SESSION['tipoutente']) && $_SESSION['tipoutente'] == 'Azienda'){
                 ?>
 
                 <section class="home-section bg-dark-alfa-30 parallax-2" data-background="images/full-width-images/section-bg-1.jpg" id="home">
@@ -255,18 +255,24 @@ if(isset($_SESSION['nomeutente'])){
                     <div class="inner-nav desktop-nav">
                         <ul class="clearlist scroll-nav local-scroll">
                             <li class="active"><a href="index.php">Home</a></li>
+                            <li><a href="TuttiAnnunci.php">Tutti gli Annunci</a></li>
                             <li><a href="InserisciAnnuncio.php">Inserisci Annuncio</a></li>
                             <li><a href="RicercaAnnuncio.php">Ricerca Annuncio</a></li>
                             <li><a href="GestioneAnnunci.php">Gestione Annunci</a></li>
+                            <li><a href="Contattaci.php">Contattaci</a></li>
+
                             <?php
                             if(isset($nome)){
-                                echo "<li><a href=\"GestioneProfilo.php\">Gestione Profilo</a></li>";
                                 echo "<li>
-                                <a href=\"\" class=\"mn-has-sub\" style=\"height: 75px; line-height: 75px;\">".$nome." <i class=\"fa fa-angle-down\"></i></a>
+                                <a href=\"GestioneProfilo.php\" class=\"mn-has-sub\" style=\"height: 75px; line-height: 75px;\">".$nome." <i class=\"fa fa-angle-down\"></i></a>
 
                                 <!-- Sub -->
                                 <ul class=\"mn-sub to-left\" style=\"display: none; opacity: 1;\">
 
+
+                                    <li>
+                                        <a href=\"GestioneProfilo.php\">Gestione Profilo</a>
+                                    </li>
                                     <li>
                                         <a href=\"logout.php\">Logout</a>
                                     </li>
@@ -286,19 +292,19 @@ if(isset($_SESSION['nomeutente'])){
                 </div>
             </nav>
             <!-- End Navigation panel -->
-            
-            
+
+
             <!-- About Section -->
             <section class="page-section" id="about">
                 <div class="container relative">
-                    
+
                     <h2 class="section-title font-alt align-left mb-70 mb-sm-40">
                         About Studio
                     </h2>
-                    
+
                     <div class="section-text mb-50 mb-sm-20">
                         <div class="row">
-                        
+
                             <div class="col-md-4">
                                 <blockquote>
                                     <p>
@@ -309,22 +315,22 @@ if(isset($_SESSION['nomeutente'])){
                                     </footer>
                                 </blockquote>
                             </div>
-                            
+
                             <div class="col-md-4 col-sm-6 mb-sm-50 mb-xs-30">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In maximus ligula semper metus pellentesque mattis. Maecenas  volutpat, diam enim sagittis quam, id porta quam. Sed id dolor consectetur fermentum nibh volutpat, accumsan purus. 
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In maximus ligula semper metus pellentesque mattis. Maecenas  volutpat, diam enim sagittis quam, id porta quam. Sed id dolor consectetur fermentum nibh volutpat, accumsan purus.
                             </div>
-                            
+
                             <div class="col-md-4 col-sm-6 mb-sm-50 mb-xs-30">
                                 Etiam sit amet fringilla lacus. Pellentesque suscipit ante at ullamcorper pulvinar neque porttitor. Integer lectus. Praesent sed nisi eleifend, fermentum orci amet, iaculis libero. Donec vel ultricies purus. Nam dictum sem, eu aliquam.
                             </div>
-                            
+
                         </div>
                     </div>
-                    
+
                 </div>
             </section>
             <!-- End About Section -->
-            
+
             <!-- Divider -->
             <hr class="mt-0 mb-0 "/>
             <!-- End Divider -->
@@ -332,13 +338,13 @@ if(isset($_SESSION['nomeutente'])){
             <!-- Foter -->
             <footer class="page-section bg-gray-lighter footer pb-60">
                 <div class="container">
-                    
+
                     <!-- Footer Logo -->
                     <div class="local-scroll mb-30 wow fadeInUp" data-wow-duration="1.5s">
                         <a href="#top"><img src="images/logo-footer.png" width="78" height="36" alt="" /></a>
                     </div>
                     <!-- End Footer Logo -->
-                    
+
                     <!-- Social Links -->
                     <div class="footer-social-links mb-110 mb-xs-60">
                         <a href="#" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a>
@@ -347,33 +353,32 @@ if(isset($_SESSION['nomeutente'])){
                         <a href="#" title="LinkedIn+" target="_blank"><i class="fa fa-linkedin"></i></a>
                         <a href="#" title="Pinterest" target="_blank"><i class="fa fa-pinterest"></i></a>
                     </div>
-                    <!-- End Social Links -->  
-                    
+                    <!-- End Social Links -->
+
                     <!-- Footer Text -->
                     <div class="footer-text">
-                        
+
                         <!-- Copyright -->
                         <div class="footer-copy font-alt">
                             <a href="http://themeforest.net/user/theme-guru/portfolio" target="_blank">&copy; Rhythm 2016</a>.
                         </div>
                         <!-- End Copyright -->
-                        
                         <div class="footer-made">
                             Made with love for great people.
                         </div>
-                        
+
                     </div>
-                    <!-- End Footer Text --> 
-                    
+                    <!-- End Footer Text -->
+
                  </div>
-                 
-                 
+
+
                  <!-- Top Link -->
                  <div class="local-scroll">
                      <a href="#top" class="link-to-top"><i class="fa fa-caret-up"></i></a>
                  </div>
                  <!-- End Top Link -->
-                 
+
             </footer>
             <!-- End Foter -->
         
